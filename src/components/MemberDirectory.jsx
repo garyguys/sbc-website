@@ -1,6 +1,6 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, Phone, Globe, Search } from 'lucide-react';
+import { Mail, Phone, Globe, Search, ChevronRight } from 'lucide-react';
 import { members } from '../data/members';
 
 const categories = [
@@ -16,6 +16,23 @@ const categories = [
 
 export default function MemberDirectory() {
     const [activeCategory, setActiveCategory] = useState("All");
+    const [canScrollRight, setCanScrollRight] = useState(false);
+    const [hasScrolled, setHasScrolled] = useState(false);
+    const scrollRef = useRef(null);
+
+    const checkScroll = useCallback(() => {
+        const el = scrollRef.current;
+        if (!el) return;
+        const canRight = el.scrollLeft < el.scrollWidth - el.clientWidth - 4;
+        setCanScrollRight(canRight);
+        if (el.scrollLeft > 10) setHasScrolled(true);
+    }, []);
+
+    useEffect(() => {
+        checkScroll();
+        window.addEventListener('resize', checkScroll);
+        return () => window.removeEventListener('resize', checkScroll);
+    }, [checkScroll]);
 
     const filteredMembers = useMemo(() => {
         if (activeCategory === "All") return members;
@@ -37,28 +54,78 @@ export default function MemberDirectory() {
 
                 {/* Category Filter Bar - Sticky */}
                 <div className="sticky top-[72px] z-30 bg-sbc-off-white/95 backdrop-blur pt-4 pb-6 mb-8 -mx-4 px-4 sm:mx-0 sm:px-0 border-b border-sbc-gray-200">
-                    <div className="flex overflow-x-auto no-scrollbar gap-2 sm:gap-3 pb-2 snap-x">
-                        {categories.map((cat) => {
-                            const isActive = activeCategory === cat;
-                            return (
-                                <button
-                                    key={cat}
-                                    onClick={() => setActiveCategory(cat)}
-                                    className={`
-                    relative shrink-0 snap-start px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300
-                    ${isActive
-                                            ? 'bg-sbc-blue text-white shadow-sm'
-                                            : 'bg-white text-sbc-gray-600 border border-sbc-gray-200 hover:border-sbc-blue/50 hover:bg-sbc-blue-light/30'}
-                  `}
+                    <div className="relative">
+                        <div
+                            ref={scrollRef}
+                            onScroll={checkScroll}
+                            className="flex overflow-x-auto no-scrollbar gap-2 sm:gap-3 pb-2 snap-x"
+                        >
+                            {categories.map((cat) => {
+                                const isActive = activeCategory === cat;
+                                return (
+                                    <button
+                                        key={cat}
+                                        onClick={() => setActiveCategory(cat)}
+                                        className={`
+                                            relative shrink-0 snap-start px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300
+                                            ${isActive
+                                                ? 'bg-sbc-blue text-white shadow-sm'
+                                                : 'bg-white text-sbc-gray-600 border border-sbc-gray-200 hover:border-sbc-blue/50 hover:bg-sbc-blue-light/30'}
+                                        `}
+                                    >
+                                        {cat}
+                                    </button>
+                                );
+                            })}
+                        </div>
+
+                        {/* Right fade + scroll hint (mobile only) */}
+                        <AnimatePresence>
+                            {canScrollRight && (
+                                <motion.div
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    className="absolute top-0 bottom-2 right-0 flex items-center pointer-events-none sm:hidden"
                                 >
-                                    {cat}
-                                </button>
-                            );
-                        })}
+                                    <div className="w-16 h-full bg-gradient-to-l from-sbc-off-white via-sbc-off-white/90 to-transparent" />
+                                    <motion.div
+                                        animate={{ x: [0, 4, 0] }}
+                                        transition={{ repeat: Infinity, duration: 1.2, ease: "easeInOut" }}
+                                        className="absolute right-1 bg-white border border-sbc-gray-200 rounded-full p-1.5 shadow-md"
+                                    >
+                                        <ChevronRight className="w-4 h-4 text-sbc-blue" />
+                                    </motion.div>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+
+                        {/* Left fade when scrolled */}
+                        <AnimatePresence>
+                            {hasScrolled && (
+                                <motion.div
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    className="absolute top-0 bottom-2 left-0 w-8 bg-gradient-to-r from-sbc-off-white to-transparent pointer-events-none sm:hidden"
+                                />
+                            )}
+                        </AnimatePresence>
                     </div>
-                    {/* Subtle fade edges for scroll indicator on mobile */}
-                    <div className="absolute top-0 bottom-0 left-0 w-8 bg-gradient-to-r from-sbc-off-white to-transparent pointer-events-none sm:hidden"></div>
-                    <div className="absolute top-0 bottom-0 right-0 w-8 bg-gradient-to-l from-sbc-off-white to-transparent pointer-events-none sm:hidden"></div>
+
+                    {/* "Swipe for more" hint - visible until first scroll */}
+                    <AnimatePresence>
+                        {!hasScrolled && canScrollRight && (
+                            <motion.p
+                                initial={{ opacity: 0, y: -4 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -4 }}
+                                className="text-xs text-sbc-gray-600 mt-1 text-center sm:hidden font-medium"
+                            >
+                                Swipe for more categories &rarr;
+                            </motion.p>
+                        )}
+                    </AnimatePresence>
                 </div>
 
                 {/* Grid */}
