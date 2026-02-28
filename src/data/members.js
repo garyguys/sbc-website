@@ -74,19 +74,19 @@ export const members = [
     },
     // === Financial Services ===
     {
-        name: "Tanya Lyn Werk, CPCA, EPC, RRC",
-        company: "IG Wealth Management Inc.",
-        email: "tanyalyn.werk@ig.ca",
-        phone: "604-996-7659",
-        website: null,
-        category: "Financial Services"
-    },
-    {
         name: "Moreen Perimal",
         company: "Dominion Lending / Reverse Mortgage Specialist",
         email: "mp@mortgagesbymoreen.com",
         phone: "604-374-6193",
         website: "www.mortgagesbymoreen.com",
+        category: "Financial Services"
+    },
+    {
+        name: "Tanya Lyn Werk, CPCA, EPC, RRC",
+        company: "IG Wealth Management Inc.",
+        email: "tanyalyn.werk@ig.ca",
+        phone: "604-996-7659",
+        website: null,
         category: "Financial Services"
     },
     // === Legal Services ===
