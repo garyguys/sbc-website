@@ -1,4 +1,5 @@
 import { HeartHandshake, MapPin, Facebook } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export default function Footer() {
     const currentYear = new Date().getFullYear();
@@ -92,9 +93,9 @@ export default function Footer() {
                 <div className="pt-8 border-t border-sbc-gray-800 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-sbc-gray-500">
                     <p>© {currentYear} Seniors Business Connect. All rights reserved.</p>
                     <div className="flex items-center gap-4">
-                        <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
+                        <Link to="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
                         <span className="w-1 h-1 rounded-full bg-sbc-gray-700"></span>
-                        <a href="#" className="hover:text-white transition-colors">Terms</a>
+                        <Link to="/terms" className="hover:text-white transition-colors">Terms</Link>
                     </div>
                 </div>
 
