@@ -1,35 +1,39 @@
 import { Link } from 'react-router-dom';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 import { ArrowLeft, FileText } from 'lucide-react';
 
 export default function Terms() {
     return (
-        <div className="min-h-screen bg-sbc-off-white">
+        <>
+        <Navbar />
+        <main id="main" className="min-h-screen bg-olive-50/60">
             {/* Header */}
-            <div className="bg-[#1B2D4F] text-white py-16 px-8">
+            <div className="bg-olive-800 text-white py-16 px-8">
                 <div className="mx-auto max-w-4xl">
-                    <Link to="/" className="inline-flex items-center gap-2 text-sbc-blue-light hover:text-white transition-colors mb-8 text-sm font-medium">
+                    <Link to="/" className="inline-flex items-center gap-2 text-olive-200 hover:text-white transition-colors mb-8 text-sm font-medium">
                         <ArrowLeft className="w-4 h-4" />
                         Back to Home
                     </Link>
                     <div className="flex items-center gap-3 mb-4">
-                        <div className="p-2 rounded-full bg-[#4DA8DA]/20">
-                            <FileText className="w-6 h-6 text-[#4DA8DA]" />
+                        <div className="p-2 rounded-full bg-terra-500/20">
+                            <FileText className="w-6 h-6 text-terra-300" />
                         </div>
                         <h1 className="text-3xl md:text-4xl font-bold tracking-tight">Terms of Service</h1>
                     </div>
-                    <p className="text-sbc-gray-200/70 text-sm">Last updated: February 27, 2026</p>
+                    <p className="text-olive-200 text-sm">Last updated: August 12, 2026</p>
                 </div>
             </div>
 
             {/* Content */}
             <div className="mx-auto max-w-4xl px-8 py-16">
-                <div className="bg-white rounded-2xl shadow-sm border border-sbc-gray-200 p-8 md:p-12 space-y-8 text-sbc-gray-900 leading-relaxed">
+                <div className="bg-white rounded-2xl shadow-sm border border-ink-200 p-8 md:p-12 space-y-8 text-ink-900 leading-relaxed">
 
                     <section>
                         <h2 className="text-xl font-bold mb-3">1. Acceptance of Terms</h2>
                         <p>
-                            By accessing and using the Seniors Business Connect website at{' '}
-                            <a href="https://www.seniorsbc.com" className="text-sbc-blue hover:underline">www.seniorsbc.com</a>{' '}
+                            By accessing and using the Seniors Professional Network website at{' '}
+                            <a href="https://www.seniorsbc.com" className="text-olive-700 hover:underline">www.seniorsbc.com</a>{' '}
                             (the "Site"), you agree to be bound by these Terms of Service ("Terms"). If you do
                             not agree to these Terms, please do not use the Site.
                         </p>
@@ -38,7 +42,7 @@ export default function Terms() {
                     <section>
                         <h2 className="text-xl font-bold mb-3">2. Description of Service</h2>
                         <p>
-                            Seniors Business Connect ("SBC") provides an online directory and informational
+                            Seniors Professional Network ("SPN") provides an online directory and informational
                             platform connecting older adults, their families, and caregivers with professionals
                             who serve seniors in Metro Vancouver and the Fraser Valley, British Columbia. The
                             Site is a community resource and does not provide professional advice, endorsements,
@@ -79,7 +83,7 @@ export default function Terms() {
                         <h2 className="text-xl font-bold mb-3">5. Intellectual Property</h2>
                         <p>
                             All content on the Site, including text, graphics, logos, icons, and software, is the
-                            property of Seniors Business Connect or its content suppliers and is protected by
+                            property of Seniors Professional Network or its content suppliers and is protected by
                             Canadian and international intellectual property laws. You may not reproduce, distribute,
                             modify, or create derivative works from the Site's content without our prior written consent.
                         </p>
@@ -91,7 +95,7 @@ export default function Terms() {
                             By subscribing to our newsletter, you consent to receiving periodic emails about SBC
                             updates, community news, and relevant resources. You can unsubscribe at any time by
                             following the unsubscribe link in any email or by contacting us at{' '}
-                            <a href="mailto:info@seniorsbc.com" className="text-sbc-blue hover:underline">info@seniorsbc.com</a>.
+                            <a href="mailto:info@seniorsbc.com" className="text-olive-700 hover:underline">info@seniorsbc.com</a>.
                         </p>
                     </section>
 
@@ -108,7 +112,7 @@ export default function Terms() {
                     <section>
                         <h2 className="text-xl font-bold mb-3">8. Limitation of Liability</h2>
                         <p>
-                            To the fullest extent permitted by law, Seniors Business Connect and its volunteers,
+                            To the fullest extent permitted by law, Seniors Professional Network and its volunteers,
                             members, and affiliates shall not be liable for any direct, indirect, incidental,
                             consequential, or punitive damages arising from your use of or inability to use the
                             Site, or from any interactions with professionals listed in the directory.
@@ -149,16 +153,18 @@ export default function Terms() {
                         <p>
                             If you have questions about these Terms of Service, please contact us:
                         </p>
-                        <div className="mt-4 p-4 bg-sbc-off-white rounded-xl text-sm space-y-1">
-                            <p className="font-semibold">Seniors Business Connect</p>
+                        <div className="mt-4 p-4 bg-olive-50/60 rounded-xl text-sm space-y-1">
+                            <p className="font-semibold">Seniors Professional Network</p>
                             <p>Metro Vancouver & the Fraser Valley, BC</p>
-                            <p>Email: <a href="mailto:info@seniorsbc.com" className="text-sbc-blue hover:underline">info@seniorsbc.com</a></p>
-                            <p>Website: <a href="https://www.seniorsbc.com" className="text-sbc-blue hover:underline">www.seniorsbc.com</a></p>
+                            <p>Email: <a href="mailto:info@seniorsbc.com" className="text-olive-700 hover:underline">info@seniorsbc.com</a></p>
+                            <p>Website: <a href="https://www.seniorsbc.com" className="text-olive-700 hover:underline">www.seniorsbc.com</a></p>
                         </div>
                     </section>
 
                 </div>
             </div>
-        </div>
+        </main>
+        <Footer />
+        </>
     );
 }

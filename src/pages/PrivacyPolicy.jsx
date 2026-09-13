@@ -1,35 +1,39 @@
 import { Link } from 'react-router-dom';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 import { ArrowLeft, Shield } from 'lucide-react';
 
 export default function PrivacyPolicy() {
     return (
-        <div className="min-h-screen bg-sbc-off-white">
+        <>
+        <Navbar />
+        <main id="main" className="min-h-screen bg-olive-50/60">
             {/* Header */}
-            <div className="bg-[#1B2D4F] text-white py-16 px-8">
+            <div className="bg-olive-800 text-white py-16 px-8">
                 <div className="mx-auto max-w-4xl">
-                    <Link to="/" className="inline-flex items-center gap-2 text-sbc-blue-light hover:text-white transition-colors mb-8 text-sm font-medium">
+                    <Link to="/" className="inline-flex items-center gap-2 text-olive-200 hover:text-white transition-colors mb-8 text-sm font-medium">
                         <ArrowLeft className="w-4 h-4" />
                         Back to Home
                     </Link>
                     <div className="flex items-center gap-3 mb-4">
-                        <div className="p-2 rounded-full bg-[#4DA8DA]/20">
-                            <Shield className="w-6 h-6 text-[#4DA8DA]" />
+                        <div className="p-2 rounded-full bg-terra-500/20">
+                            <Shield className="w-6 h-6 text-terra-300" />
                         </div>
                         <h1 className="text-3xl md:text-4xl font-bold tracking-tight">Privacy Policy</h1>
                     </div>
-                    <p className="text-sbc-gray-200/70 text-sm">Last updated: February 27, 2026</p>
+                    <p className="text-olive-200 text-sm">Last updated: August 12, 2026</p>
                 </div>
             </div>
 
             {/* Content */}
             <div className="mx-auto max-w-4xl px-8 py-16">
-                <div className="bg-white rounded-2xl shadow-sm border border-sbc-gray-200 p-8 md:p-12 space-y-8 text-sbc-gray-900 leading-relaxed">
+                <div className="bg-white rounded-2xl shadow-sm border border-ink-200 p-8 md:p-12 space-y-8 text-ink-900 leading-relaxed">
 
                     <section>
                         <h2 className="text-xl font-bold mb-3">1. Introduction</h2>
                         <p>
-                            Seniors Business Connect ("SBC", "we", "our", or "us") operates the website{' '}
-                            <a href="https://www.seniorsbc.com" className="text-sbc-blue hover:underline">www.seniorsbc.com</a>{' '}
+                            Seniors Professional Network ("SPN", "we", "our", or "us") operates the website{' '}
+                            <a href="https://www.seniorsbc.com" className="text-olive-700 hover:underline">www.seniorsbc.com</a>{' '}
                             (the "Site"). This Privacy Policy explains how we collect, use, disclose, and safeguard
                             your information when you visit our Site. By using the Site, you agree to the practices
                             described in this policy.
@@ -78,7 +82,7 @@ export default function PrivacyPolicy() {
                             professional contact information (name, business name, email, phone number, and website)
                             on the Site. If you are a listed professional and wish to update or remove your
                             information, please contact us at{' '}
-                            <a href="mailto:info@seniorsbc.com" className="text-sbc-blue hover:underline">info@seniorsbc.com</a>.
+                            <a href="mailto:info@seniorsbc.com" className="text-olive-700 hover:underline">info@seniorsbc.com</a>.
                         </p>
                     </section>
 
@@ -132,7 +136,7 @@ export default function PrivacyPolicy() {
                         </ul>
                         <p className="mt-4">
                             To exercise any of these rights, please contact us at{' '}
-                            <a href="mailto:info@seniorsbc.com" className="text-sbc-blue hover:underline">info@seniorsbc.com</a>.
+                            <a href="mailto:info@seniorsbc.com" className="text-olive-700 hover:underline">info@seniorsbc.com</a>.
                         </p>
                     </section>
 
@@ -159,16 +163,18 @@ export default function PrivacyPolicy() {
                         <p>
                             If you have questions or concerns about this Privacy Policy, please contact us:
                         </p>
-                        <div className="mt-4 p-4 bg-sbc-off-white rounded-xl text-sm space-y-1">
-                            <p className="font-semibold">Seniors Business Connect</p>
+                        <div className="mt-4 p-4 bg-olive-50/60 rounded-xl text-sm space-y-1">
+                            <p className="font-semibold">Seniors Professional Network</p>
                             <p>Metro Vancouver & the Fraser Valley, BC</p>
-                            <p>Email: <a href="mailto:info@seniorsbc.com" className="text-sbc-blue hover:underline">info@seniorsbc.com</a></p>
-                            <p>Website: <a href="https://www.seniorsbc.com" className="text-sbc-blue hover:underline">www.seniorsbc.com</a></p>
+                            <p>Email: <a href="mailto:info@seniorsbc.com" className="text-olive-700 hover:underline">info@seniorsbc.com</a></p>
+                            <p>Website: <a href="https://www.seniorsbc.com" className="text-olive-700 hover:underline">www.seniorsbc.com</a></p>
                         </div>
                     </section>
 
                 </div>
             </div>
-        </div>
+        </main>
+        <Footer />
+        </>
     );
 }

@@ -1,165 +1,108 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Search, MapPin, ArrowRight } from 'lucide-react';
 import { members } from '../data/members';
 
 export default function Hero() {
-    const [shuffledMembers, setShuffledMembers] = useState([]);
-    const [activeIndex, setActiveIndex] = useState(0);
+    const [q, setQ] = useState('');
+    const navigate = useNavigate();
 
-    const visibleCards = shuffledMembers.length > 0
-        ? [
-            shuffledMembers[activeIndex % shuffledMembers.length],
-            shuffledMembers[(activeIndex + 1) % shuffledMembers.length],
-            shuffledMembers[(activeIndex + 2) % shuffledMembers.length]
-        ].filter(Boolean)
-        : [];
-
-    useEffect(() => {
-        setShuffledMembers([...members].sort(() => 0.5 - Math.random()));
-    }, []);
-
-    useEffect(() => {
-        if (shuffledMembers.length === 0) return;
-        const interval = setInterval(() => {
-            setActiveIndex((prev) => (prev + 1) % shuffledMembers.length);
-        }, 3500);
-        return () => clearInterval(interval);
-    }, [shuffledMembers]);
-
-    const fadeInUp = {
-        hidden: { y: 30, opacity: 0 },
-        visible: { y: 0, opacity: 1, transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] } }
+    const submit = (e) => {
+        e.preventDefault();
+        const query = q.trim();
+        navigate(query ? `/directory?q=${encodeURIComponent(query)}` : '/directory');
     };
 
-    const staggerContainer = {
-        hidden: { opacity: 0 },
-        visible: { opacity: 1, transition: { staggerChildren: 0.08 } }
-    };
+    const memberCount = members.length;
+    const categoryCount = new Set(members.map((m) => m.category)).size;
 
     return (
-        <section id="top" className="relative min-h-[100dvh] flex items-center pt-24 pb-12 overflow-hidden bg-white">
-            {/* Blue Glow Backgrounds */}
-            <div className="absolute top-0 right-0 -translate-y-1/4 translate-x-1/4 w-[600px] h-[600px] bg-sbc-blue/25 rounded-full blur-[100px] pointer-events-none z-0"></div>
-            <div className="absolute bottom-0 left-0 translate-y-1/4 -translate-x-1/4 w-[500px] h-[500px] bg-[#4DA8DA]/30 rounded-full blur-[120px] pointer-events-none z-0"></div>
-
-            {/* Subtle Dot Grid Background */}
+        <section className="relative overflow-hidden bg-parchment">
+            {/* Soft olive wash, echoing the wreath side of the logo */}
             <div
-                className="absolute inset-0 pointer-events-none opacity-[0.03] z-0"
-                style={{ backgroundImage: 'radial-gradient(#212121 1px, transparent 1px)', backgroundSize: '32px 32px' }}
-            ></div>
+                aria-hidden="true"
+                className="pointer-events-none absolute -left-40 -top-40 h-[34rem] w-[34rem] rounded-full bg-olive-100/50 blur-3xl"
+            />
+            <div
+                aria-hidden="true"
+                className="pointer-events-none absolute -right-32 top-24 h-[26rem] w-[26rem] rounded-full bg-terra-100/40 blur-3xl"
+            />
 
-            {/* Very faint gradient sweep */}
-            <div className="absolute inset-0 bg-gradient-to-br from-white/40 via-white/40 to-sbc-off-white/40 pointer-events-none z-0"></div>
+            <div className="relative mx-auto grid max-w-7xl items-center gap-14 px-5 py-16 lg:grid-cols-[1.15fr_1fr] lg:gap-20 lg:px-8 lg:py-24">
+                <div>
+                    <p className="eyebrow">Connect · Collaborate · Support</p>
 
-            <div className="mx-auto max-w-7xl px-4 w-full relative z-10">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+                    <h1 className="mt-5 text-4xl font-bold leading-[1.12] tracking-tight sm:text-5xl lg:text-[3.4rem]">
+                        Trusted professionals who
+                        <span className="text-olive-700"> understand seniors</span>
+                    </h1>
 
-                    {/* Left Column: Text Content */}
-                    <motion.div
-                        className="flex flex-col gap-6"
-                        variants={staggerContainer}
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true, margin: "-100px" }}
-                    >
-                        {/* Eyebrow Label */}
-                        <motion.div variants={fadeInUp} className="flex items-center gap-2">
-                            <span className="relative flex h-2.5 w-2.5">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sbc-accent opacity-75"></span>
-                                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-sbc-accent"></span>
-                            </span>
-                            <span className="text-sm font-semibold tracking-wider uppercase text-sbc-blue">
-                                Metro Vancouver and the Fraser Valley
-                            </span>
-                        </motion.div>
+                    <p className="mt-6 max-w-xl text-lg text-ink-700 sm:text-xl">
+                        Finding the right help for an ageing parent — or for yourself — should not
+                        mean starting with a search engine and hoping. Our members work with seniors
+                        every day, and they know each other.
+                    </p>
 
-                        {/* Main Headline */}
-                        <motion.div variants={fadeInUp}>
-                            <h1 className="text-5xl sm:text-6xl md:text-[64px] font-extrabold leading-[1.1] text-sbc-gray-900 tracking-tight">
-                                Trusted Professionals, <br />
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-sbc-blue to-sbc-blue-dark">Dedicated to Seniors</span>
-                            </h1>
-                        </motion.div>
-
-                        {/* Subtitle */}
-                        <motion.p variants={fadeInUp} className="text-lg md:text-xl text-sbc-gray-600 max-w-[520px] font-medium leading-relaxed">
-                            Seniors Business Connect is a collaborative network of trusted local professionals dedicated to educating, supporting, and empowering older adults in our community.
-                        </motion.p>
-
-                        {/* CTAs */}
-                        <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4 mt-2">
-                            <a
-                                href="#directory"
-                                className="inline-flex items-center justify-center px-8 py-3.5 text-base font-semibold rounded-full bg-sbc-blue text-white shadow-sm hover:bg-sbc-blue-dark hover:-translate-y-0.5 hover:shadow-md transition-all duration-300"
-                            >
-                                Browse Directory
-                            </a>
-                        </motion.div>
-
-                        {/* Stats Bar */}
-                        <motion.div variants={fadeInUp} className="flex items-center gap-4 mt-8 pt-6 border-t border-sbc-gray-200/50">
-                            <div className="flex items-center gap-3 md:gap-4 flex-wrap text-sm text-sbc-gray-600">
-                                <span className="font-medium text-sbc-gray-900">25+ Professionals</span>
-                                <div className="w-[1px] h-4 bg-sbc-gray-200"></div>
-                                <span className="font-medium text-sbc-gray-900">10+ Service Categories</span>
-                                <div className="w-[1px] h-4 bg-sbc-gray-200 hidden sm:block"></div>
-                                <span className="font-medium text-sbc-gray-900 w-full sm:w-auto mt-2 sm:mt-0">Metro Vancouver & Fraser Valley</span>
+                    <form onSubmit={submit} className="mt-9 max-w-xl" role="search">
+                        <label htmlFor="hero-search" className="sr-only">
+                            Search the member directory
+                        </label>
+                        <div className="flex flex-col gap-3 sm:flex-row">
+                            <div className="relative flex-1">
+                                <Search
+                                    size={22}
+                                    aria-hidden="true"
+                                    className="pointer-events-none absolute left-5 top-1/2 -translate-y-1/2 text-ink-400"
+                                />
+                                <input
+                                    id="hero-search"
+                                    type="search"
+                                    value={q}
+                                    onChange={(e) => setQ(e.target.value)}
+                                    placeholder="Try “home care”, “dementia”, or “downsizing”"
+                                    className="h-14 w-full rounded-full border-2 border-ink-200 bg-white pl-14 pr-5 text-base
+                                               placeholder:text-ink-500 focus:border-olive-700 focus:outline-none"
+                                />
                             </div>
-                        </motion.div>
-                    </motion.div>
-
-                    {/* Right Column: Visuals */}
-                    <motion.div
-                        className="relative h-[400px] sm:h-[500px] w-full hidden lg:block"
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
-                    >
-                        <div className="absolute inset-0 flex justify-center items-center">
-                            <motion.div
-                                className="relative w-[320px] h-[180px]"
-                                animate={{ y: [0, -15, 0] }}
-                                transition={{ duration: 4, ease: "easeInOut", repeat: Infinity }}
-                            >
-                                <AnimatePresence mode="popLayout">
-                                    {visibleCards.map((member, i) => (
-                                        <motion.div
-                                            key={member.name + member.category}
-                                            layout
-                                            initial={{ opacity: 0, scale: 0.8, x: 50, y: 50 }}
-                                            animate={{
-                                                opacity: 1 - i * 0.15,
-                                                scale: 1 - i * 0.05,
-                                                x: i === 0 ? -15 : i === 1 ? 10 : 35,
-                                                y: i === 0 ? -15 : i === 1 ? 5 : 25,
-                                                rotate: i === 0 ? -4 : i === 1 ? 2 : 6,
-                                                zIndex: 30 - i
-                                            }}
-                                            exit={{
-                                                opacity: 0,
-                                                x: -150,
-                                                y: 20,
-                                                scale: 0.9,
-                                                rotate: -15
-                                            }}
-                                            transition={{ duration: 1.0, type: "spring", bounce: 0.15 }}
-                                            className="absolute inset-0 bg-white rounded-2xl border border-sbc-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.06)] p-6 flex flex-col justify-center"
-                                        >
-                                            <div className="mb-4">
-                                                <span className="inline-block px-3 py-1 rounded-full bg-sbc-blue-light/80 text-sbc-blue text-xs font-semibold">
-                                                    {member.category}
-                                                </span>
-                                            </div>
-                                            <h3 className="font-bold text-lg text-sbc-gray-900 tracking-tight">{member.name}</h3>
-                                            <p className="text-sbc-blue text-sm font-medium mt-1 truncate">{member.company}</p>
-                                        </motion.div>
-                                    ))}
-                                </AnimatePresence>
-                            </motion.div>
+                            <button type="submit" className="btn-primary shrink-0 !h-14">
+                                Search
+                            </button>
                         </div>
-                    </motion.div>
+                    </form>
 
+                    <p className="mt-5 flex flex-wrap items-center gap-x-2 gap-y-1 text-base text-ink-600">
+                        <MapPin size={18} aria-hidden="true" className="text-olive-600" />
+                        <span>
+                            <strong className="font-semibold text-ink-800">{memberCount} members</strong>{' '}
+                            across {categoryCount} fields, serving Metro Vancouver &amp; the Fraser Valley
+                        </span>
+                    </p>
+
+                    <p className="mt-3">
+                        <Link
+                            to="/directory"
+                            className="inline-flex items-center gap-1.5 text-base font-semibold text-terra-600 underline-offset-4 hover:underline"
+                        >
+                            Browse the full directory
+                            <ArrowRight size={17} aria-hidden="true" />
+                        </Link>
+                    </p>
+                </div>
+
+                {/* Logo mark, used as the hero's single visual anchor */}
+                <div className="relative hidden justify-self-center lg:block">
+                    <div
+                        aria-hidden="true"
+                        className="absolute inset-0 -m-10 rounded-full bg-gradient-to-br from-olive-50 via-parchment to-terra-50"
+                    />
+                    <img
+                        src="/spn-mark.png"
+                        alt=""
+                        aria-hidden="true"
+                        width={512}
+                        height={489}
+                        className="relative w-full max-w-[26rem] drop-shadow-sm"
+                    />
                 </div>
             </div>
         </section>

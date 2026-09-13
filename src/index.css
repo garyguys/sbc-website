@@ -5,57 +5,80 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    /* Offset for the sticky header when jumping to an anchor */
+    scroll-padding-top: 6rem;
   }
 
   body {
-    @apply bg-sbc-white text-sbc-gray-900 antialiased selection:bg-sbc-blue-light selection:text-sbc-blue-dark;
+    @apply bg-parchment text-ink-900 font-sans antialiased
+           selection:bg-olive-100 selection:text-olive-900;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-serif text-ink-900;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Visible, high-contrast focus ring — important for keyboard and low-vision users */
+  :focus-visible {
+    @apply outline-none ring-2 ring-offset-2 ring-olive-700 ring-offset-parchment rounded-sm;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  .eyebrow {
+    @apply font-sans text-xs font-semibold uppercase tracking-[0.18em] text-terra-600;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full font-sans font-semibold
+           transition-all duration-200 min-h-[3rem] px-7 text-base;
+  }
+
+  .btn-primary {
+    @apply btn bg-olive-700 text-white hover:bg-olive-800 shadow-sm hover:shadow-lift;
+  }
+
+  .btn-accent {
+    @apply btn bg-terra-500 text-white hover:bg-terra-600 shadow-sm hover:shadow-lift;
+  }
+
+  .btn-outline {
+    @apply btn border-2 border-olive-700 text-olive-800 hover:bg-olive-50;
+  }
+
+  .card {
+    @apply rounded-2xl border border-ink-200 bg-white shadow-card
+           transition-shadow duration-200;
+  }
+
+  /* Decorative laurel-inspired rule that echoes the logo's wreath */
+  .rule-dot::after {
+    content: '';
+    @apply mt-5 block h-px w-full bg-gradient-to-r from-transparent via-olive-300 to-transparent;
   }
 }
 
 @layer utilities {
-  .no-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-  .no-scrollbar {
-    -ms-overflow-style: none;
-    /* IE and Edge */
-    scrollbar-width: none;
-    /* Firefox */
-  }
-
-  .pulse-dot {
-    animation: pulse-dot 2s ease-in-out infinite;
-  }
-
-  @keyframes pulse-dot {
-
-    0%,
-    100% {
-      opacity: 1;
-      transform: scale(1);
-    }
-
-    50% {
-      opacity: 0.5;
-      transform: scale(0.85);
-    }
-  }
-
-  .blink-cursor {
-    animation: blink-cursor 0.8s step-end infinite;
-  }
-
-  @keyframes blink-cursor {
-
-    0%,
-    100% {
-      opacity: 1;
-    }
-
-    50% {
-      opacity: 0;
-    }
+  /* Skip link, revealed on focus */
+  .skip-link {
+    @apply sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100]
+           focus:rounded-lg focus:bg-olive-700 focus:px-5 focus:py-3 focus:text-white;
   }
 }

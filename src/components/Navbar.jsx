@@ -1,142 +1,116 @@
-import { useState, useEffect } from 'react';
-import { Menu, X, HeartHandshake } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import { Link, NavLink } from 'react-router-dom';
+import { Menu, X, Search } from 'lucide-react';
+
+const LINKS = [
+    { label: 'Directory', to: '/directory' },
+    { label: 'Resources', to: '/resources' },
+    { label: 'About', to: '/#about' },
+    { label: 'How it works', to: '/#how-it-works' },
+];
 
 export default function Navbar() {
-    const [isScrolled, setIsScrolled] = useState(false);
-    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [open, setOpen] = useState(false);
+    const [scrolled, setScrolled] = useState(false);
 
     useEffect(() => {
-        const handleScroll = () => {
-            setIsScrolled(window.scrollY > 50);
-        };
-        window.addEventListener('scroll', handleScroll, { passive: true });
-        return () => window.removeEventListener('scroll', handleScroll);
+        const onScroll = () => setScrolled(window.scrollY > 8);
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+        return () => window.removeEventListener('scroll', onScroll);
     }, []);
 
-    const navLinks = [
-        { name: 'Directory', href: '#directory' },
-        { name: 'About', href: '#about' },
-        { name: 'How It Works', href: '#how-it-works' }
-    ];
-
-    const scrollTo = (e, href) => {
-        e.preventDefault();
-        setIsMobileMenuOpen(false);
-        const element = document.querySelector(href);
-        if (element) {
-            const offset = 100; // offset for the sticky navbar
-            const elementPosition = element.getBoundingClientRect().top;
-            const offsetPosition = elementPosition + window.pageYOffset - offset;
-            window.scrollTo({
-                top: offsetPosition,
-                behavior: 'smooth'
-            });
-        }
-    };
+    // Prevent background scroll while the mobile menu is open
+    useEffect(() => {
+        document.body.style.overflow = open ? 'hidden' : '';
+        return () => { document.body.style.overflow = ''; };
+    }, [open]);
 
     return (
-        <>
-            <header className={`fixed top-4 left-0 right-0 z-50 mx-auto max-w-7xl px-4 transition-all duration-300`}>
-                <div className="flex items-center justify-between rounded-full px-6 py-3 transition-all duration-300 bg-white/90 backdrop-blur-xl shadow-sm border border-sbc-gray-200/80 text-sbc-gray-900">
-                    {/* Logo */}
-                    <a href="#" className="flex items-center gap-2 group" onClick={(e) => scrollTo(e, '#top')}>
-                        <div className="p-2 rounded-full transition-colors bg-sbc-blue-light text-sbc-blue">
-                            <HeartHandshake className="w-5 h-5" />
-                        </div>
-                        <span className="font-bold text-lg tracking-tight hidden sm:block">Seniors Business Connect</span>
-                        <span className="font-bold text-lg tracking-tight sm:hidden">SBC</span>
-                    </a>
+        <header
+            className={`sticky top-0 z-50 border-b transition-all duration-300 ${
+                scrolled
+                    ? 'border-ink-200 bg-parchment/95 backdrop-blur-md shadow-sm'
+                    : 'border-transparent bg-parchment'
+            }`}
+        >
+            <nav
+                aria-label="Main"
+                className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-3 lg:px-8"
+            >
+                <Link to="/" className="shrink-0" aria-label="Seniors Professional Network — home">
+                    <img
+                        src="/spn-logo-horizontal.png"
+                        alt="Seniors Professional Network"
+                        width={1000}
+                        height={348}
+                        className="h-12 w-auto sm:h-14"
+                    />
+                </Link>
 
-                    {/* Desktop Nav */}
-                    <nav className="hidden md:flex items-center gap-8">
-                        {navLinks.map((link) => (
-                            <a
-                                key={link.name}
-                                href={link.href}
-                                onClick={(e) => scrollTo(e, link.href)}
-                                className={`text-sm font-medium transition-colors hover:opacity-70`}
-                            >
-                                {link.name}
-                            </a>
-                        ))}
-                    </nav>
-
-                    {/* Right Action */}
-                    <div className="flex items-center gap-4">
-                        <button
-                            onClick={(e) => scrollTo(e, '#directory')}
-                            className="hidden md:inline-flex items-center justify-center px-6 py-2.5 text-sm font-semibold rounded-full transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg bg-sbc-blue text-white hover:bg-[#1B2D4F]"
+                {/* Desktop navigation */}
+                <div className="hidden items-center gap-1 lg:flex">
+                    {LINKS.map((l) => (
+                        <NavLink
+                            key={l.to}
+                            to={l.to}
+                            className={({ isActive }) =>
+                                `rounded-full px-4 py-2.5 text-base font-medium transition-colors ${
+                                    isActive && l.to.startsWith('/') && !l.to.includes('#')
+                                        ? 'bg-olive-50 text-olive-800'
+                                        : 'text-ink-700 hover:bg-olive-50 hover:text-olive-800'
+                                }`
+                            }
                         >
-                            Find a Professional
-                        </button>
+                            {l.label}
+                        </NavLink>
+                    ))}
+                    <Link to="/directory" className="btn-primary ml-3 !px-6 !text-[0.95rem]">
+                        <Search size={18} aria-hidden="true" />
+                        Find a professional
+                    </Link>
+                </div>
 
-                        {/* Mobile Toggle */}
-                        <button
-                            className="md:hidden p-2 -mr-2"
-                            onClick={() => setIsMobileMenuOpen(true)}
-                            aria-label="Open menu"
-                        >
-                            <Menu className="w-6 h-6" />
-                        </button>
+                {/* Mobile trigger */}
+                <button
+                    type="button"
+                    onClick={() => setOpen((v) => !v)}
+                    aria-expanded={open}
+                    aria-controls="mobile-menu"
+                    className="flex h-12 w-12 items-center justify-center rounded-full text-ink-800 hover:bg-olive-50 lg:hidden"
+                >
+                    <span className="sr-only">{open ? 'Close menu' : 'Open menu'}</span>
+                    {open ? <X size={26} /> : <Menu size={26} />}
+                </button>
+            </nav>
+
+            {/* Mobile menu */}
+            {open && (
+                <div
+                    id="mobile-menu"
+                    className="border-t border-ink-200 bg-parchment lg:hidden"
+                >
+                    <div className="mx-auto max-w-7xl px-5 py-4">
+                        <ul className="flex flex-col">
+                            {LINKS.map((l) => (
+                                <li key={l.to}>
+                                    <Link
+                                        to={l.to}
+                                        onClick={() => setOpen(false)}
+                                        className="block border-b border-ink-100 py-4 text-lg font-medium text-ink-800"
+                                    >
+                                        {l.label}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                        <Link to="/directory" onClick={() => setOpen(false)} className="btn-primary mt-5 w-full">
+                            <Search size={18} aria-hidden="true" />
+                            Find a professional
+                        </Link>
                     </div>
                 </div>
-            </header>
-
-            {/* Mobile Menu Overlay */}
-            <AnimatePresence>
-                {isMobileMenuOpen && (
-                    <>
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm md:hidden"
-                            onClick={() => setIsMobileMenuOpen(false)}
-                        />
-                        <motion.div
-                            initial={{ x: '100%' }}
-                            animate={{ x: 0 }}
-                            exit={{ x: '100%' }}
-                            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                            className="fixed top-0 right-0 bottom-0 z-50 w-3/4 max-w-sm bg-white shadow-2xl p-6 md:hidden flex flex-col"
-                        >
-                            <div className="flex justify-between items-center mb-8">
-                                <span className="font-bold text-lg text-sbc-gray-900">Menu</span>
-                                <button
-                                    onClick={() => setIsMobileMenuOpen(false)}
-                                    className="p-2 -mr-2 text-sbc-gray-600 hover:text-sbc-gray-900"
-                                    aria-label="Close menu"
-                                >
-                                    <X className="w-6 h-6" />
-                                </button>
-                            </div>
-
-                            <nav className="flex flex-col gap-6">
-                                {navLinks.map((link) => (
-                                    <a
-                                        key={link.name}
-                                        href={link.href}
-                                        onClick={(e) => scrollTo(e, link.href)}
-                                        className="text-lg font-medium text-sbc-gray-900 border-b border-sbc-gray-100 pb-4"
-                                    >
-                                        {link.name}
-                                    </a>
-                                ))}
-                            </nav>
-
-                            <div className="mt-auto pt-8">
-                                <button
-                                    onClick={(e) => scrollTo(e, '#directory')}
-                                    className="w-full inline-flex items-center justify-center px-6 py-3 text-base font-semibold rounded-full bg-sbc-blue text-white transition-all active:scale-95"
-                                >
-                                    Find a Professional
-                                </button>
-                            </div>
-                        </motion.div>
-                    </>
-                )}
-            </AnimatePresence>
-        </>
+            )}
+        </header>
     );
 }

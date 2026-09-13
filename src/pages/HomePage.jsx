@@ -1,9 +1,10 @@
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
-import Features from '../components/Features';
-import MemberDirectory from '../components/MemberDirectory';
+import NeedsGrid from '../components/NeedsGrid';
+import DirectoryPreview from '../components/DirectoryPreview';
 import About from '../components/About';
 import HowItWorks from '../components/HowItWorks';
+import ResourcesPreview from '../components/ResourcesPreview';
 import JoinUs from '../components/JoinUs';
 import Footer from '../components/Footer';
 
@@ -11,12 +12,13 @@ export default function HomePage() {
     return (
         <>
             <Navbar />
-            <main>
+            <main id="main">
                 <Hero />
-                <Features />
-                <MemberDirectory />
+                <NeedsGrid />
+                <DirectoryPreview />
                 <About />
                 <HowItWorks />
+                <ResourcesPreview />
                 <JoinUs />
             </main>
             <Footer />
