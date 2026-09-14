@@ -1,6 +1,6 @@
 /**
  * A handwritten margin note with a curved arrow, e.g.
- *   "Genuinely free — we are not a lead broker"
+ *   "Every listing is a real person you can ring"
  *
  * Purely decorative: hidden from assistive tech and from small screens, where
  * there is no margin to write in.

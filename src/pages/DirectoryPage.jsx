@@ -1,10 +1,11 @@
-import { useEffect, useMemo } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useMemo } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import MemberCard from '../components/MemberCard';
 import { members, CATEGORIES } from '../data/members';
+import usePageMeta from '../lib/usePageMeta';
 
 function Chip({ active, count, onClick, children }) {
     return (
@@ -26,11 +27,13 @@ export default function DirectoryPage() {
     const [params, setParams] = useSearchParams();
     const category = params.get('category') ?? '';
 
-    useEffect(() => {
-        const previous = document.title;
-        document.title = `${category || 'Member directory'} | Seniors Professional Network`;
-        return () => { document.title = previous; };
-    }, [category]);
+    usePageMeta({
+        title: category || 'Member directory',
+        description: category
+            ? `${category} professionals who work with seniors across Metro Vancouver and the Fraser Valley. Members of the Seniors Professional Network, with direct contact details.`
+            : 'Find a trusted professional who works with seniors, by industry, across Metro Vancouver and the Fraser Valley. Every listing has direct contact details.',
+        path: '/directory',
+    });
 
     const setCategory = (value) => {
         const next = new URLSearchParams(params);
@@ -64,7 +67,7 @@ export default function DirectoryPage() {
                         <h1 className="mt-4 font-serif text-4xl font-bold sm:text-5xl lg:text-6xl">Every member</h1>
                         <p className="mt-5 max-w-2xl text-xl text-ink-700">
                             Everyone here works with older adults across Metro Vancouver and the Fraser Valley.
-                            Contact them directly — no form, no fee, nobody in between.
+                            Contact them directly — no form, nobody in between.
                         </p>
                     </div>
                 </section>
@@ -106,7 +109,7 @@ export default function DirectoryPage() {
                         </p>
 
                         {results.length > 0 ? (
-                            <ul className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                            <ul className="mt-8 grid gap-6 md:grid-cols-2 2xl:grid-cols-3">
                                 {results.map((m) => (
                                     <li key={m.slug} className="animate-fade-up">
                                         <MemberCard member={m} />
@@ -124,9 +127,9 @@ export default function DirectoryPage() {
                                     <button type="button" onClick={() => setCategory('')} className="btn-primary">
                                         Show all members
                                     </button>
-                                    <a href="mailto:info@seniorsbc.com" className="btn-plain">
-                                        Email us
-                                    </a>
+                                    <Link to="/#ask" className="btn-plain">
+                                        Ask us
+                                    </Link>
                                 </div>
                             </div>
                         )}
@@ -137,17 +140,18 @@ export default function DirectoryPage() {
                 <section className="border-t-2 border-ink-900 bg-olive-800 py-14">
                     <div className="shell flex flex-col items-start justify-between gap-7 lg:flex-row lg:items-center">
                         <div>
-                            <h2 className="font-serif text-3xl font-bold text-parchment">Do you serve older adults?</h2>
+                            <h2 className="font-serif text-3xl font-bold text-parchment">Not sure who to call?</h2>
                             <p className="mt-3 max-w-2xl text-lg text-olive-100">
-                                {members.length} professionals are already here. Membership is by application.
+                                Tell us what you are dealing with and we will point you to the right member, or to
+                                someone outside the network if that serves you better.
                             </p>
                         </div>
-                        <a href="mailto:info@seniorsbc.com?subject=Membership%20Application" className="btn-accent shrink-0">
-                            Apply to join
+                        <Link to="/#ask" className="btn-accent shrink-0">
+                            Ask us
                             <span className="btn-arrow-invert">
                                 <ArrowRight size={18} aria-hidden="true" />
                             </span>
-                        </a>
+                        </Link>
                     </div>
                 </section>
             </main>

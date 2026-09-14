@@ -67,7 +67,7 @@ export const resources = [
             'Forty years of belongings will not sort themselves in a weekend. A slower, ordered approach that keeps the decisions small and the arguments rare.',
         readingTime: '7 min read',
         category: 'Moving and downsizing',
-        relatedCategories: ['Home Services', 'Real Estate'],
+        relatedCategories: ['Moving & Transitions', 'Real Estate'],
         published: true,
         body: [
             { t: 'p', text: 'The mistake almost everyone makes is starting in the room with the most meaning in it. The photographs, the letters, the boxes in the spare bedroom. Three hours later nothing has been sorted and somebody is upset.' },
@@ -105,7 +105,7 @@ export const resources = [
             'Most falls happen in familiar rooms doing ordinary things. An hour with this checklist and a notepad is the cheapest intervention available.',
         readingTime: '5 min read',
         category: 'Staying at home',
-        relatedCategories: ['Home Services', 'Health & Wellness'],
+        relatedCategories: ['Health & Wellness', 'Moving & Transitions'],
         published: true,
         body: [
             { t: 'p', text: 'Walk the house at the time of day it is hardest to see — late afternoon in winter, or after dark. Take a notepad. You are looking for three things: what is in the way, what is hard to reach, and what is hard to see.' },
@@ -157,7 +157,7 @@ export const resources = [
             'The conversation most families put off until a crisis forces it. Some ways to start it earlier, and go better.',
         readingTime: '6 min read',
         category: 'Family conversations',
-        relatedCategories: ['Health & Wellness', 'Home Services'],
+        relatedCategories: ['Health & Wellness', 'Senior Living & Care'],
         published: true,
         body: [
             { t: 'p', text: 'Almost nobody has this conversation well the first time. It usually happens too late, under pressure, with several family members in the room and somebody in tears. It goes better when it happens early, quietly, and long before a decision has to be made.' },

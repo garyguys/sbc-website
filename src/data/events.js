@@ -1,6 +1,10 @@
 // =============================================================================
 // Events — what's on for the public and for members.
 //
+// The Community Education Series ("Navigating the Aging Journey - From
+// Independence to Support") is run with the BC Community Response Networks.
+// Add a `link` to each session once the registration form exists.
+//
 // Add one object per event. Past events drop off automatically (see
 // upcomingEvents below), so there is no need to delete them; the list is also
 // a record. Keep it to the next five or six upcoming events on the home page;
@@ -20,15 +24,24 @@
 // =============================================================================
 
 export const events = [
-    // Example — replace with real events and delete this entry.
-    // {
-    //     date: '2026-10-14',
-    //     time: '9:00–11:00 a.m.',
-    //     title: 'Monthly network meeting',
-    //     summary: 'Members meet, share referrals, and hear a short talk from one of the group.',
-    //     location: 'Location to confirm',
-    //     audience: 'members',
-    // },
+    {
+        date: '2026-10-22',
+        time: '10:30 a.m. to 3:00 p.m., doors 10:00 a.m.',
+        title: 'Thriving at Home: Resources and Strategies for Staying Independent',
+        summary:
+            'Community Education Series, part one. Talks on brain health, nutrition, falls prevention and in-home support, plus exhibitor tables and lunch.',
+        location: 'Grace Point Church, 3487 King George Blvd, South Surrey',
+        audience: 'public',
+    },
+    {
+        date: '2026-11-19',
+        time: '10:30 a.m. to 3:00 p.m., doors 10:00 a.m.',
+        title: 'Planning the Transition: Moving to Supportive Living with Confidence',
+        summary:
+            'Community Education Series, part two. A panel on housing options, then downsizing, selling and moving, and financing the next step, plus exhibitor tables and lunch.',
+        location: 'Grace Point Church, 3487 King George Blvd, South Surrey',
+        audience: 'public',
+    },
 ];
 
 const MONTHS = [

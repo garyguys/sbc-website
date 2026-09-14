@@ -1,9 +1,9 @@
-import { useEffect } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, Info } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { getResourceBySlug } from '../data/resources';
+import usePageMeta from '../lib/usePageMeta';
 
 function Block({ block }) {
     switch (block.t) {
@@ -41,12 +41,11 @@ export default function ResourceArticle() {
     const { slug } = useParams();
     const article = getResourceBySlug(slug);
 
-    useEffect(() => {
-        if (!article) return;
-        const previous = document.title;
-        document.title = `${article.title} | Seniors Professional Network`;
-        return () => { document.title = previous; };
-    }, [article]);
+    usePageMeta({
+        title: article ? article.title : 'Resources',
+        description: article ? article.summary : undefined,
+        path: article ? `/resources/${article.slug}` : '/resources',
+    });
 
     if (!article) return <Navigate to="/resources" replace />;
 

@@ -4,8 +4,6 @@ Public website for the Seniors Professional Network (SPN) — a network of trust
 professionals serving seniors and their families across Metro Vancouver and the
 Fraser Valley.
 
-Formerly *Seniors Business Connect*.
-
 ## Running locally
 
 ```bash
@@ -22,6 +20,30 @@ Deployed on **Vercel**; the domain is managed at **Hostinger**. `vercel.json`
 rewrites all routes to `index.html` — required, or direct links to
 `/directory/<slug>` will 404.
 
+## Contact form
+
+The "Just ask us" form on the home page (`src/components/AskForm.jsx`) posts to
+**Formspree** (endpoint `https://formspree.io/f/mdeorbay`, managed from the
+Formspree dashboard, which forwards to info@seniorsbc.com). After a successful
+send the visitor lands on `/thank-you`. The "send me occasional emails"
+checkbox is the mailing-list sign-up: filter the Formspree inbox on
+`updates = Yes` to build the list. The only other way to reach SPN on the site
+is the plain email address; every "Ask us" button links to `/#ask`.
+
+## Search engines and sharing
+
+- `public/sitemap.xml` is **generated**, not edited: `npm run build` runs
+  `scripts/sitemap.mjs` first, which lists every member profile and published
+  resource from the data files. It is git-ignored for that reason.
+- `public/robots.txt` allows everything and points at the sitemap.
+- Page titles, descriptions, canonical URLs and Facebook share tags are set
+  per page by `src/lib/usePageMeta.js`; `index.html` holds the home-page
+  defaults and the Organization structured data.
+- `public/share-card.png` (1200×630) is the image Facebook and others show
+  when a link to the site is shared.
+- After the domain goes live, add the site to Google Search Console and
+  submit `https://www.seniorsbc.com/sitemap.xml`.
+
 ## Editing the site
 
 There is no CMS. Three files in `src/data/` control almost everything:
@@ -29,6 +51,7 @@ There is no CMS. Three files in `src/data/` control almost everything:
 | File | Contains |
 |---|---|
 | `members.js` | The member roster and industry categories |
+| `businesses.js` | Shared records for businesses with more than one member |
 | `events.js` | Upcoming events for the home page |
 | `resources.js` | Guide articles |
 

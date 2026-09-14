@@ -2,8 +2,14 @@ import ResourceCard from '../components/ResourceCard';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { publishedResources } from '../data/resources';
+import usePageMeta from '../lib/usePageMeta';
 
 export default function ResourcesPage() {
+    usePageMeta({
+        title: 'Resources for seniors and families',
+        description: 'Plain-language guides from the Seniors Professional Network: touring a residence, downsizing, home safety, and talking to a parent about help.',
+        path: '/resources',
+    });
     const items = publishedResources();
 
     return (

@@ -37,7 +37,7 @@ export default function Footer() {
                             <li><Link to="/#events" className="text-ink-400 hover:text-white">Events</Link></li>
                             <li><Link to="/#about" className="text-ink-400 hover:text-white">About us</Link></li>
                             <li><Link to="/#how-it-works" className="text-ink-400 hover:text-white">How it works</Link></li>
-                            <li><Link to="/#join" className="text-ink-400 hover:text-white">Join the network</Link></li>
+                            <li><Link to="/#ask" className="text-ink-400 hover:text-white">Ask us a question</Link></li>
                         </ul>
                     </nav>
 
@@ -57,14 +57,14 @@ export default function Footer() {
                             </li>
                         </ul>
                         <a
-                            href="https://www.facebook.com/groups/550849279098858"
+                            href="https://www.facebook.com/profile.php?id=61594122220776"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="mt-6 inline-flex w-fit items-center gap-2 rounded-full bg-ink-800 px-5 py-3
                                        text-base font-medium text-ink-300 transition-colors hover:bg-olive-700 hover:text-white"
                         >
                             <Facebook size={18} aria-hidden="true" />
-                            Facebook Group
+                            Facebook page
                         </a>
                     </div>
 
@@ -89,7 +89,7 @@ export default function Footer() {
                 <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-ink-800 pt-8 text-sm text-ink-500 md:flex-row">
                     <p>
                         © {year} Seniors Professional Network. All rights reserved.
-                        <span className="ml-2 text-ink-600">Formerly Seniors Business Connect.</span>
+                        
                     </p>
                     <div className="flex items-center gap-4">
                         <Link to="/privacy" className="hover:text-white">Privacy Policy</Link>

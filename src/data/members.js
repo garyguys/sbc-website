@@ -31,20 +31,32 @@
 //   years         Years working with seniors, as the member phrased it.
 //   established   Year the business was founded.
 //   booking       Booking, intake or contact page URL.
+//   bookingLabel  Text for the booking button. Default "Book or enquire".
 //   social        { linkedin, facebook, instagram } URLs or handles.
-//   photo         Path under /public for a headshot, once supplied. Cards and
-//                 profiles fall back to initials when absent.
+//   address       Street address of the main location, shown on the profile.
+//   locations     For members who look after more than one site: an array of
+//                 { name, address, phone?, website? }, listed on the profile.
+//   photo         Path under /public for a headshot (square, 600x600 JPEG).
+//                 Cards and profiles fall back to initials when absent.
+//   logo          Path under /public/members/logos for the business logo
+//                 (PNG, transparent or white background), shown on the profile.
+//   business      Key of a shared record in ./businesses.js, for members who
+//                 work for the same business. The business fields are filled
+//                 in from there; anything set here on the person wins.
 //
 // ⚠️ OPEN ITEMS — search for "TODO"
-//   1. Phone numbers marked "roster" came from the internal roster, not the
-//      public form. Confirm each member is happy to publish them.
+//   1. Phone numbers only appear when the member supplied them on the public
+//      form or the business publishes them on its own website. Roster-only
+//      numbers were removed before launch (Sept 2026); add them back as
+//      members confirm.
 //   2. Members without a form response only have basic contact details.
 // =============================================================================
 
 export const CATEGORIES = [
     'Senior Living & Care',
     'Health & Wellness',
-    'Home Services',
+    'Moving & Transitions',
+    'Food Services',
     'Financial Services',
     'Real Estate',
     'Legal Services',
@@ -57,7 +69,8 @@ export const CATEGORIES = [
 export const CATEGORY_ICONS = {
     'Senior Living & Care': 'Building2',
     'Health & Wellness': 'HeartPulse',
-    'Home Services': 'Wrench',
+    'Moving & Transitions': 'Truck',
+    'Food Services': 'Utensils',
     'Financial Services': 'PiggyBank',
     'Real Estate': 'House',
     'Legal Services': 'Scale',
@@ -83,23 +96,13 @@ const FRASER_VALLEY = ['Abbotsford and Mission', 'Chilliwack', 'Agassiz and Hope
 export const members = [
     // ========================= Senior Living & Care =========================
     {
-        slug: 'terrie-orthner',
-        name: 'Terrie Orthner',
-        company: 'Aspira Peninsula Retirement Living',
-        email: 'Terrie.Orthner@siennaliving.ca',
-        phone: '236-333-5149',
-        website: 'https://www.aspiralife.ca',
-        category: 'Senior Living & Care',
-        location: 'South Surrey',
-    },
-    {
         slug: 'tina-coco',
         name: 'Tina Coco',
         title: 'Sales Advisor',
         company: 'Aspira Pacifica Retirement Community',
         email: 'tina.coco@siennaliving.ca',
         phone: '236-833-1680',
-        website: 'https://www.aspiralife.ca',
+        website: 'https://www.aspiralife.ca/our-locations/british-columbia/surrey/aspira-pacifica-retirement-living/',
         category: 'Senior Living & Care',
         location: 'South Surrey',
         address: '2525 King George Blvd, Surrey, BC V4P 0C8',
@@ -131,6 +134,8 @@ export const members = [
         years: '2 to 5 years',
         established: 2009,
         areasServed: [...LOWER_MAINLAND, ...FRASER_VALLEY, 'Sea to Sky', 'Sunshine Coast', 'Vancouver Island', 'Province wide'],
+        photo: '/members/tina-coco.jpg',
+        logo: '/members/logos/aspira-pacifica.png',
     },
     {
         slug: 'samantha-sigurdson',
@@ -138,9 +143,12 @@ export const members = [
         company: 'Venvi Renaissance Langley',
         email: 'Samantha.Sigurdson@cogirseniorliving.ca',
         phone: '604-539-0571',
-        website: 'https://www.cogirseniorliving.ca',
+        website: 'https://cogirseniorliving.ca/retirement-home-langley-british-columbia/venvi-renaissance-langley',
         category: 'Senior Living & Care',
         location: 'Langley',
+        address: '6676 203rd Street, Langley, BC V2Y 2Z1',
+        description: 'Independent living retirement residence in Langley, with short-term stays available. Scenic surroundings, engaging activities, fine dining and hospitality services.',
+        services: ['Independent living', 'Short-term stays'],
     },
     {
         slug: 'tarn-rai',
@@ -148,9 +156,12 @@ export const members = [
         company: 'Rosemary Heights Seniors Village',
         email: 'trai@retirementconcepts.com',
         phone: '778-938-1342',
-        website: 'https://www.retirementconcepts.com',
+        website: 'https://www.retirementconcepts.com/community/rosemary-heights-seniors-village/',
         category: 'Senior Living & Care',
         location: 'Surrey',
+        address: '15240 34th Avenue, Surrey, BC V3Z 2J9',
+        description: 'A continuum-of-care community in South Surrey where seniors can age in place. Couples can stay together on site even when their care needs differ.',
+        services: ['Independent living', 'Assisted living', 'Complex care'],
     },
     {
         slug: 'michael-amirani',
@@ -158,9 +169,12 @@ export const members = [
         company: 'Langley Seniors Village',
         email: 'michaelamirani@retirementconcepts.com',
         phone: '604-307-9066',
-        website: 'https://www.retirementconcepts.com',
+        website: 'https://www.retirementconcepts.com/community/langley-seniors-village/',
         category: 'Senior Living & Care',
         location: 'Langley',
+        address: '20363 65th Avenue, Langley, BC V2Y 3E3',
+        description: 'Independent living and assisted living residence in the Willoughby area of Langley.',
+        services: ['Independent living', 'Assisted living'],
     },
     {
         slug: 'shally-prasad',
@@ -205,6 +219,7 @@ export const members = [
         established: 2018,
         areasServed: LOWER_MAINLAND,
         social: { facebook: 'https://www.facebook.com/profile.php?id=61573587983375' },
+        bookingLabel: 'Book a tour',
     },
     {
         slug: 'natasha-stott',
@@ -215,27 +230,40 @@ export const members = [
         website: 'https://www.pacificcarlton.com',
         category: 'Senior Living & Care',
         location: 'White Rock',
+        description: 'Two sister communities in South Surrey and White Rock offering all-inclusive independent living for seniors.',
+        services: ['Independent living', 'All-inclusive hospitality services'],
+        locations: [
+            { name: 'Pacific Carlton', address: '15366 17th Avenue, Surrey, BC V4A 1T9', phone: '604-531-1160', website: 'https://www.pacificcarlton.com' },
+            { name: 'Sunnyside Manor', address: '15340 17th Avenue, Surrey, BC V4A 1T9', phone: '604-531-7470', website: 'https://sunnysidemanor.com' },
+        ],
     },
     {
         slug: 'keri-severinski',
         name: 'Keri Severinski',
         company: 'Bria Communities',
         email: 'keri.severinski@briacommunities.ca',
-        phone: '604-789-2307', // TODO roster
-        website: 'https://www.briacommunities.ca',
+        phone: '604-510-5091', // published on briacommunities.ca (Sunridge Gardens)
+        website: 'https://briacommunities.ca/communities/',
         category: 'Senior Living & Care',
         location: 'Langley',
-        description: 'Sunridge Gardens and Magnolia Gardens, Langley.',
+        description: 'Bria Communities is a collection of local retirement communities and long-term care homes in Langley and Tsawwassen. Keri looks after the two Langley communities.',
+        locations: [
+            { name: 'Sunridge Gardens', address: '22301 Fraser Highway, Langley, BC V3A 4H5', phone: '604-510-5091', website: 'https://briacommunities.ca/communities/sunridge-gardens/' },
+            { name: 'Magnolia Gardens', address: '5840 Glover Road, Langley, BC V3A 9K3', phone: '604-514-1210', website: 'https://briacommunities.ca/communities/magnolia-gardens/' },
+        ],
     },
     {
         slug: 'cassandra-stephens',
         name: 'Cassandra Stephens',
         company: 'Chartwell Langley Gardens',
         email: 'castephens@chartwell.com',
-        phone: '778-828-5137', // TODO roster
-        website: 'https://www.chartwell.com',
+        phone: '604-676-3098', // published on chartwell.com
+        website: 'https://chartwell.com/bc/langley/langley-gardens',
         category: 'Senior Living & Care',
         location: 'Langley',
+        address: '8888 202nd Street, Langley, BC V1M 4A7',
+        description: 'A Langley retirement residence offering independent living and assisted living through to memory living and long-term care, so support can grow as needs change.',
+        services: ['Independent living', 'Assisted living', 'Memory living', 'Long-term care'],
     },
 
     // ========================== Health & Wellness ===========================
@@ -277,7 +305,8 @@ export const members = [
             linkedin: 'https://www.linkedin.com/in/karen-tyrell/',
             facebook: 'https://www.facebook.com/Personalized.Dementia.Solutions.Inc',
             instagram: 'dementia__help',
-        },
+            bookingLabel: 'Book a free call',
+    },
     },
     {
         slug: 'diane-hill-doell',
@@ -324,7 +353,9 @@ export const members = [
         social: {
             linkedin: 'https://www.linkedin.com/company/advanced-foot-care-by-nurses-inc-bc./',
             instagram: 'advancedfootcarebynursesincbc',
-        },
+            photo: '/members/diane-hill-doell.jpg',
+        logo: '/members/logos/advanced-foot-care.png',
+    },
     },
     {
         slug: 'harleen-kalra',
@@ -334,6 +365,10 @@ export const members = [
         phone: '604-728-7626',
         website: 'https://www.physiatrixrehab.com',
         category: 'Health & Wellness',
+        location: 'Delta, Surrey and Langley',
+        address: '105 - 11957 80 Avenue, Delta, BC V4C 0E1',
+        description: 'Registered physiotherapists who come to you: rehabilitation at home across Delta, Surrey and Langley, with clinic-based physiotherapy, massage therapy and acupuncture also available.',
+        services: ['In-home physiotherapy', 'Clinic physiotherapy', 'Massage therapy', 'Acupuncture'],
     },
     {
         slug: 'sunny-upadhyay',
@@ -343,56 +378,84 @@ export const members = [
         phone: '604-541-7550',
         website: 'https://www.saveonscooters.ca',
         category: 'Health & Wellness',
+        location: 'South Surrey',
+        address: '15231 16 Avenue, Surrey, BC V4A 1R6',
+        description: 'Mobility scooters, power chairs, wheelchairs and walkers for seniors and anyone with mobility challenges, for sale or rental, with free local delivery. Over 25 years serving Surrey, White Rock, Langley, Delta and Tsawwassen.',
+        services: ['Mobility scooters', 'Power chairs', 'Manual wheelchairs', 'Walkers', 'Accessories', 'Rentals', 'Free local delivery'],
+        hours: 'Monday to Friday, 9:00 a.m. to 5:00 p.m.',
+        areasServed: ['Surrey and White Rock', 'Langley', 'Delta, Ladner and Tsawwassen'],
     },
     {
         slug: 'shalini-charla',
         name: 'Shalini Charla',
         company: 'Adult Cognitive Wellness Centre',
         email: 'shalinic@adultcognitivewellnesscentre.ca',
-        phone: null, // TODO not yet supplied
-        website: null,
+        phone: '778-549-6413',
+        website: 'https://adultcognitivewellnesscentre.ca',
+        category: 'Health & Wellness',
+        location: 'Langley',
+        address: '6676 203rd Street, Langley, BC V2Y 2Z1',
+        description: 'Group cognitive stimulation programs using evidence-based practices to help improve or maintain cognitive function and overall wellness, with caregiver support groups and free half-day trial programs.',
+        services: ['Cognitive stimulation programs', 'Physical wellness activities', 'Social engagement', 'Caregiver support groups', 'Free half-day trial programs'],
+    },
+
+    {
+        slug: 'ethan-martin',
+        name: 'Ethan Martin',
+        business: 'comfort-keepers',
+        company: 'Comfort Keepers',
+        email: 'ethanmartin@comfortkeepersvancouver.ca',
+        phone: '604-541-8653',
+        category: 'Health & Wellness',
+    },
+    {
+        slug: 'erica-kerry',
+        name: 'Erica Kerry',
+        business: 'comfort-keepers',
+        company: 'Comfort Keepers',
+        email: 'erica@comfortkeepersvancouver.ca',
+        phone: '604-541-8653', // White Rock office line, published on comfortkeepers.ca
         category: 'Health & Wellness',
     },
 
-    // ============================ Home Services =============================
+    // ========================== Moving & Transitions ========================
+    {
+        slug: 'terrie-orthner',
+        name: 'Terrie Orthner',
+        company: 'Next Phase Navigators',
+        email: 'info@nextphasenavigators.ca',
+        phone: '604-250-4860',
+        website: 'https://www.nextphasenavigators.ca',
+        category: 'Moving & Transitions',
+        description: 'Independent guidance for seniors and families facing a major life transition: housing decisions, downsizing and relocation, handled with clarity and without commissions or sales pressure. Consultations are in person or virtual, with hourly, as-needed support available.',
+        services: ['Personal consultation, in person or virtual', 'Transition navigation and planning', 'Advocacy and appointment support', 'Ongoing support and follow-up coordination', 'Hourly, as-needed assistance'],
+        areasServed: ['Province wide'],
+    },
     {
         slug: 'garrett-robertson',
         name: 'Garrett Robertson',
         title: 'Director',
+        business: 'get-started-home-services',
         company: 'Get Started Home Services',
         email: 'admin@getstartedhomeservices.com',
         phone: '604-996-8512',
-        website: 'https://getstartedhomeservices.com',
-        category: 'Home Services',
-        tagline: 'Full service seniors moving and home transitions.',
-        gettingStarted: 'Call, text, email or book on our website for a free initial consultation.',
-        freeConsultation: true,
-        payment: ['Private pay', 'Payment plans available'],
-        hours: '7 days a week, 8:00 a.m. to 9:00 p.m.',
+        category: 'Moving & Transitions',
         languages: ['English'],
-        years: '11 to 20 years',
-        established: 2020,
-        areasServed: [...LOWER_MAINLAND, ...FRASER_VALLEY],
-        social: { instagram: 'getstartedhs' },
+        years: '6 to 10 years',
+        photo: '/members/garrett-robertson.jpg',
+        blurb: 'Garrett Robertson is the director of Get Started Home Services, which he has been building since 2020, originally alongside his mother Dawn. He is hands-on in the work: meeting families at the kitchen table, walking the home, writing the plan, and being on site with the crew on moving day. Based in Surrey, he also co-founded and chairs the Seniors Professional Network, bringing together the professionals a family is likely to need when a senior’s living situation changes.',
     },
     {
-        slug: 'ethan-martin',
-        name: 'Ethan Martin',
-        company: 'Comfort Keepers',
-        email: 'ethanmartin@comfortkeepersvancouver.ca',
-        phone: '604-541-8653',
-        website: 'https://www.comfortkeepersvancouver.ca',
-        category: 'Home Services',
+        slug: 'dawn-robertson',
+        name: 'Dawn Robertson',
+        business: 'get-started-home-services',
+        company: 'Get Started Home Services',
+        email: 'admin@getstartedhomeservices.com',
+        phone: '604-996-8512',
+        category: 'Moving & Transitions',
+        photo: '/members/dawn-robertson.jpg',
     },
-    {
-        slug: 'joseph-choi',
-        name: 'Joseph Choi',
-        company: 'ShelfGenie',
-        email: 'jchoi@shelfgenie.com',
-        phone: '778-984-6868',
-        website: 'https://www.shelfgenie.com',
-        category: 'Home Services',
-    },
+    // ============================= Food Services ============================
     {
         // Two INDEPENDENT Heart to Home Meals franchises are in the network.
         // They must stay visibly distinct so families contact the right one.
@@ -401,10 +464,12 @@ export const members = [
         company: 'Heart to Home Meals — Vancouver',
         franchiseOf: 'Heart to Home Meals',
         email: 'vancouver@hearttohomemeals.ca',
-        phone: '778-308-4351', // TODO roster
+        phone: '778-308-4351', // published Heart to Home Meals Vancouver line
         website: 'https://www.hearttohomemeals.ca',
-        category: 'Home Services',
+        category: 'Food Services',
         location: 'Vancouver',
+        description: 'Over 200 chef-crafted frozen meals for seniors, delivered free to the door by a familiar driver who will even put them in the freezer. Order online or by phone, as often as you like, with lunch and dinner mains, breakfasts, soups, desserts and snacks.',
+        services: ['Free home delivery', 'Order online or by phone', 'Low sodium, high fibre and vegetarian options', 'Higher protein and carb-controlled options', 'Allergen-aware choices', 'Texture-modified meals'],
     },
     {
         slug: 'harvin-bhathal',
@@ -412,10 +477,12 @@ export const members = [
         company: 'Heart to Home Meals — Fraser Valley',
         franchiseOf: 'Heart to Home Meals',
         email: 'harvinbhathal.media@gmail.com',
-        phone: '604-855-8323', // TODO roster
+        phone: '604-243-8855', // published Heart to Home Meals Fraser Valley line
         website: 'https://www.hearttohomemeals.ca',
-        category: 'Home Services',
+        category: 'Food Services',
         location: 'Fraser Valley',
+        description: 'Over 200 chef-crafted frozen meals for seniors, delivered free to the door by a familiar driver who will even put them in the freezer. Order online or by phone, as often as you like, with lunch and dinner mains, breakfasts, soups, desserts and snacks.',
+        services: ['Free home delivery', 'Order online or by phone', 'Low sodium, high fibre and vegetarian options', 'Higher protein and carb-controlled options', 'Allergen-aware choices', 'Texture-modified meals'],
     },
 
     // ========================== Financial Services ==========================
@@ -428,6 +495,8 @@ export const members = [
         phone: '604-374-6193',
         website: 'https://www.mortgagesbymoreen.com',
         category: 'Financial Services',
+        description: 'A mortgage brokerage working with more than 26 lenders to find the right fit, with a focus on reverse mortgages that let seniors access the equity in their home. Also handles refinancing, renewals, debt consolidation and home equity lines of credit.',
+        services: ['Reverse mortgages (CHIP)', 'Home equity lines of credit', 'Mortgage refinancing and renewals', 'Debt consolidation', 'Mortgage pre-approval'],
     },
 
     // ============================= Real Estate ==============================
@@ -440,6 +509,9 @@ export const members = [
         phone: '604-762-6125',
         website: 'https://www.soldbysadhana.com',
         category: 'Real Estate',
+        description: 'Residential real estate across Metro Vancouver and the Fraser Valley, with more than 21 years of experience helping people sell the family home and find the right next place, whether that is a smaller home, a condo or a retirement community.',
+        services: ['Home valuation and selling', 'Downsizing and the move to a smaller home', 'Property search and listing alerts', 'Coordination with mortgage and moving professionals', 'Market reports'],
+        areasServed: ['Metro Vancouver', 'Fraser Valley'],
     },
 
     // ============================ Legal Services ============================
@@ -448,10 +520,12 @@ export const members = [
         name: 'Mimi Wang',
         company: 'Maximus Law',
         email: 'wang@maximuslaw.ca',
-        phone: '778-386-6963', // TODO roster
+        phone: '778-386-6963', // published on maximuslaw.ca
         website: 'https://www.maximuslaw.ca',
         category: 'Legal Services',
         social: { linkedin: 'https://www.linkedin.com/in/mimi-w-9b69161b' },
+        description: 'Wills and estate planning, including powers of attorney, representation agreements and medical directives, along with grants of probate and estate administration for families after a death. Business and corporate law is also offered.',
+        services: ['Wills and estate planning', 'Powers of attorney', 'Representation agreements and medical directives', 'Grants of probate', 'Estate administration', 'Business law'],
     },
 
     // =========================== Travel & Leisure ===========================
@@ -460,9 +534,11 @@ export const members = [
         name: 'Yvonna Camire',
         company: 'Paramount Cruise & Travel',
         email: 'yvonnac@shaw.ca',
-        phone: '604-575-6200', // TODO roster
-        website: null,
+        phone: '604-575-6200', // published on wegothere.ca
+        website: 'https://wegothere.ca',
         category: 'Travel & Leisure',
+        description: 'Pre-planned, luxury motorcoach tours and cruises, organized so that travellers can relax and enjoy the trip without the logistics.',
+        services: ['Motorcoach tours', 'Cruises', 'Pre-planned group travel'],
     },
 
     // ========================= End-of-Life Services =========================
@@ -471,9 +547,13 @@ export const members = [
         name: 'Vanessa King',
         company: 'Alternatives Funeral & Cremation Services',
         email: 'v.king@myalternatives.ca',
-        phone: null, // TODO not yet supplied
+        phone: '604-857-5779', // published on myalternatives.ca
         website: 'https://www.myalternatives.ca',
         category: 'End-of-Life Services',
+        location: 'Aldergrove',
+        address: '3070 275A Street, Aldergrove, BC V4W 3L4',
+        description: 'Accessible, flexible cremation and funeral services, available around the clock, from simple cremation to celebrations of life and full funeral services, serving Metro Vancouver and the Fraser Valley.',
+        services: ['Simple cremation', 'Funeral services', 'Celebrations of life', 'Graveside and green burial', 'Witness cremation', 'Sea scatter', 'Pre-planning and prepaid arrangements'],
     },
 
     // ======================= Community Organizations ========================
@@ -486,6 +566,7 @@ export const members = [
         website: 'https://www.wrssms.ca',
         category: 'Community Organizations',
         location: 'White Rock, South Surrey',
+        description: 'A community group that creates a supportive environment where men can engage with others, combat isolation, discover new opportunities and take part in purposeful activities that promote personal growth and community connection.',
     },
     {
         slug: 'louise-taylor',
@@ -496,6 +577,11 @@ export const members = [
         website: 'https://www.brellasociety.ca',
         category: 'Community Organizations',
         location: 'White Rock',
+        address: '15008 26th Avenue, Surrey, BC V4P 3H5',
+        description: 'A non-profit established in 1977 providing community services and day programs for seniors in Surrey and White Rock.',
+        established: 1977,
+        photo: '/members/louise-taylor.jpg',
+        logo: '/members/logos/brella.png',
     },
 ];
 
@@ -509,6 +595,13 @@ export const membersByCategory = () =>
         .filter((g) => g.members.length > 0);
 
 export const getMemberBySlug = (slug) => members.find((m) => m.slug === slug) || null;
+
+/** Other members of the same business record, if any. */
+export const colleaguesOf = (m) =>
+    m?.business ? members.filter((o) => o.business === m.business && o.slug !== m.slug) : [];
+
+/** Members with the same company, whether via a shared record or the same company name. */
+export const sameBusiness = (a, b) => (a.business && a.business === b.business) || a.company === b.company;
 
 /** Full display name including credentials, e.g. "Karen Tyrell, CPCA, CDCP". */
 export const displayName = (m) => (m.credentials ? `${m.name}, ${m.credentials}` : m.name);

@@ -16,7 +16,7 @@ const PILLARS = [
     {
         eyebrow: 'Support',
         title: 'We answer for the standard',
-        body: 'Membership is by application, and members hold each other to how older adults should be treated — not just served.',
+        body: 'Membership is by invitation, and members hold each other to how older adults should be treated — not just served.',
         icon: ShieldCheck,
     },
 ];
@@ -41,10 +41,6 @@ export default function About() {
                             support older adults across Metro Vancouver and the Fraser Valley.
                         </p>
                     </div>
-                    <p className="card-dark mt-8 p-6 text-lg font-semibold text-parchment">
-                        We were formerly known as Seniors Business Connect. The name changed; the people and the
-                        purpose did not.
-                    </p>
                 </div>
 
                 <ul className="space-y-5">

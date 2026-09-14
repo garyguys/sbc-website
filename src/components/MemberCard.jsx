@@ -1,23 +1,30 @@
 import { Link } from 'react-router-dom';
 import { Mail, Globe, Phone, MapPin, ArrowUpRight } from 'lucide-react';
 import { displayName, initials } from '../data/members';
+import { withBusiness } from '../data/businesses';
 
 const telHref = (phone) => `tel:${phone.replace(/[^\d+]/g, '')}`;
 
 const CONTACT_BTN =
-    'inline-flex min-h-[2.75rem] items-center gap-2 rounded-full border-2 border-ink-900 ' +
-    'bg-white px-4 text-base font-semibold transition-colors hover:bg-olive-300';
+    'inline-flex min-h-[2.75rem] items-center gap-1.5 rounded-full border-2 border-ink-900 ' +
+    'bg-white px-3.5 text-base font-semibold transition-colors hover:bg-olive-300';
 
 /**
  * A member's directory card. Contact details are shown in full and link
  * directly: a phone number you can tap, an email you can send, a website you
- * can open. No enquiry form, nothing in between.
+ * can open. The whole card is a link to the profile; the phone, email and
+ * website links sit above that overlay so they still work on their own.
  */
-export default function MemberCard({ member: m }) {
+export default function MemberCard({ member }) {
+    const m = withBusiness(member);
     const name = displayName(m);
+    const profile = `/directory/${m.slug}`;
 
     return (
-        <article className="card card-press flex h-full flex-col p-6">
+        <article className="card card-press relative flex h-full flex-col p-6">
+            {/* Whole-card link to the profile. Sits under the contact links. */}
+            <Link to={profile} className="absolute inset-0 z-0 rounded-2xl" aria-label={`View ${name}'s profile`} />
+
             <div className="flex items-start gap-4">
                 {m.photo ? (
                     <img
@@ -35,11 +42,7 @@ export default function MemberCard({ member: m }) {
                     </span>
                 )}
                 <div className="min-w-0 flex-1">
-                    <h3 className="font-serif text-lg font-bold leading-snug">
-                        <Link to={`/directory/${m.slug}`} className="hover:text-olive-700">
-                            {name}
-                        </Link>
-                    </h3>
+                    <h3 className="font-serif text-lg font-bold leading-snug">{name}</h3>
                     {m.title && <p className="mt-0.5 text-sm text-ink-600">{m.title}</p>}
                     <p className="mt-1 text-base font-semibold text-terra-700">{m.company}</p>
                 </div>
@@ -60,7 +63,7 @@ export default function MemberCard({ member: m }) {
 
             <div className="flex-1" />
 
-            <div className="mt-5 border-t-2 border-dashed border-ink-200 pt-5">
+            <div className="relative z-10 mt-5 border-t-2 border-dashed border-ink-200 pt-5">
                 {m.phone && (
                     <p className="flex items-center gap-2.5">
                         <Phone size={18} aria-hidden="true" className="shrink-0 text-ink-500" />
@@ -69,7 +72,7 @@ export default function MemberCard({ member: m }) {
                         </a>
                     </p>
                 )}
-                <div className={`flex flex-wrap items-center gap-2 ${m.phone ? 'mt-3' : ''}`}>
+                <div className={`flex items-center gap-2 ${m.phone ? 'mt-3' : ''}`}>
                     <a href={`mailto:${m.email}`} className={CONTACT_BTN}>
                         <Mail size={18} aria-hidden="true" />
                         Email
@@ -83,8 +86,9 @@ export default function MemberCard({ member: m }) {
                         </a>
                     )}
                     <Link
-                        to={`/directory/${m.slug}`}
-                        className="ml-auto inline-flex min-h-[2.75rem] items-center gap-1 px-2 text-base font-bold text-olive-700 hover:underline"
+                        to={profile}
+                        className="ml-auto inline-flex min-h-[2.75rem] items-center gap-1.5 rounded-full border-2 border-ink-900
+                                   bg-olive-700 px-3.5 text-base font-bold text-white transition-colors hover:bg-olive-800"
                     >
                         Profile
                         <span className="sr-only">for {name}</span>

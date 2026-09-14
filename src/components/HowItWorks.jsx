@@ -1,21 +1,20 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
-import Annotation from './Annotation';
 
 const STEPS = [
     {
         title: 'Pick an industry',
-        body: 'Nine of them, in plain words. No account, no form, nothing to sign up for.',
+        body: 'Housing, health, moving, money, legal and more, in plain words. No account, no form, nothing to sign up for.',
         tone: 'card',
     },
     {
-        title: 'Ring them yourself',
-        body: 'Every listing shows the member’s own number, email and website. You reach them directly — we take no referral fee and never pass your details on.',
+        title: 'Reach them directly',
+        body: 'Every listing shows the member’s own number, email and website. You talk to the person, not a call centre.',
         tone: 'card-accent',
     },
     {
         title: 'Ask who else to speak to',
-        body: 'If they are not the right fit, they will usually know who is — inside the network or outside it. That is rather the point of a network.',
+        body: 'If they are not the right fit, they will usually know who is. Members know each other and refer across the network.',
         tone: 'card',
     },
 ];
@@ -27,7 +26,7 @@ export default function HowItWorks() {
                 <div className="mx-auto max-w-2xl text-center">
                     <p className="eyebrow">How it works</p>
                     <h2 className="marker-head mt-4 font-serif text-4xl font-bold sm:text-5xl">
-                        Three steps, and none of them <span className="marker">cost anything</span>
+                        Three steps to <span className="marker">the right help</span>
                     </h2>
                 </div>
 
@@ -48,9 +47,13 @@ export default function HowItWorks() {
                             <ArrowRight size={18} aria-hidden="true" />
                         </span>
                     </Link>
-                    <Annotation side="left" className="hidden lg:flex">
-                        {'Genuinely free —\nwe are not a lead broker'}
-                    </Annotation>
+                    <p className="text-lg text-ink-700">
+                        Not sure where to start?{' '}
+                        <a href="#ask" className="font-semibold text-olive-700 underline-offset-4 hover:underline">
+                            send us a message
+                        </a>{' '}
+                        and we will point you in the right direction.
+                    </p>
                 </div>
             </div>
         </section>

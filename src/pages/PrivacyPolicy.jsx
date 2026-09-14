@@ -2,8 +2,10 @@ import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { ArrowLeft } from 'lucide-react';
+import usePageMeta from '../lib/usePageMeta';
 
 export default function PrivacyPolicy() {
+    usePageMeta({ title: 'Privacy policy', path: '/privacy' });
     return (
         <>
         <Navbar />
@@ -108,7 +110,7 @@ export default function PrivacyPolicy() {
                             <li><strong>With your consent:</strong> When you have given us explicit permission.</li>
                             <li><strong>Service providers:</strong> With trusted partners who assist in operating the Site, subject to confidentiality obligations.</li>
                             <li><strong>Legal requirements:</strong> When required by law, regulation, or legal process.</li>
-                            <li><strong>Safety:</strong> To protect the rights, safety, or property of SBC, our users, or the public.</li>
+                            <li><strong>Safety:</strong> To protect the rights, safety, or property of SPN, our users, or the public.</li>
                         </ul>
                     </section>
 

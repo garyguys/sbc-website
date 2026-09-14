@@ -2,8 +2,10 @@ import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { ArrowLeft } from 'lucide-react';
+import usePageMeta from '../lib/usePageMeta';
 
 export default function Terms() {
+    usePageMeta({ title: 'Terms of use', path: '/terms' });
     return (
         <>
         <Navbar />
@@ -62,7 +64,7 @@ export default function Terms() {
                         <h2 className="mb-3 font-serif text-2xl font-bold text-ink-900">4. Directory Listings</h2>
                         <p className="mb-4">
                             The professionals listed in our directory have voluntarily provided their information
-                            for inclusion. SBC does not:
+                            for inclusion. SPN does not:
                         </p>
                         <ul className="list-disc pl-6 space-y-2">
                             <li>Endorse, recommend, or guarantee any listed professional or their services</li>
@@ -71,7 +73,7 @@ export default function Terms() {
                         </ul>
                         <p className="mt-4">
                             Users are encouraged to conduct their own due diligence when engaging with any
-                            professional found through the Site. SBC serves as a connecting resource only.
+                            professional found through the Site. SPN serves as a connecting resource only.
                         </p>
                     </section>
 
@@ -88,7 +90,7 @@ export default function Terms() {
                     <section>
                         <h2 className="mb-3 font-serif text-2xl font-bold text-ink-900">6. Newsletter and Communications</h2>
                         <p>
-                            By subscribing to our newsletter, you consent to receiving periodic emails about SBC
+                            By subscribing to our newsletter, you consent to receiving periodic emails about SPN
                             updates, community news, and relevant resources. You can unsubscribe at any time by
                             following the unsubscribe link in any email or by contacting us at{' '}
                             <a href="mailto:info@seniorsbc.com" className="text-olive-700 hover:underline">info@seniorsbc.com</a>.
@@ -99,7 +101,7 @@ export default function Terms() {
                         <h2 className="mb-3 font-serif text-2xl font-bold text-ink-900">7. Disclaimer of Warranties</h2>
                         <p>
                             The Site is provided on an "as is" and "as available" basis without warranties of any
-                            kind, whether express or implied. SBC does not warrant that the Site will be uninterrupted,
+                            kind, whether express or implied. SPN does not warrant that the Site will be uninterrupted,
                             error-free, or free of viruses or other harmful components. We make no warranties about
                             the accuracy, reliability, completeness, or timeliness of the content on the Site.
                         </p>
@@ -120,7 +122,7 @@ export default function Terms() {
                         <p>
                             The Site may contain links to third-party websites (including member websites and
                             affiliate organizations). These links are provided for convenience only and do not
-                            signify endorsement. SBC is not responsible for the content or privacy practices of
+                            signify endorsement. SPN is not responsible for the content or privacy practices of
                             any linked sites.
                         </p>
                     </section>

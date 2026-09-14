@@ -7,6 +7,7 @@ import ResourcesPage from './pages/ResourcesPage';
 import ResourceArticle from './pages/ResourceArticle';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import Terms from './pages/Terms';
+import ThankYou from './pages/ThankYou';
 
 /**
  * Restores the top of the page on navigation, but honours in-page hash links
@@ -55,6 +56,7 @@ export default function App() {
                 <Route path="/resources/:slug" element={<ResourceArticle />} />
                 <Route path="/privacy" element={<PrivacyPolicy />} />
                 <Route path="/terms" element={<Terms />} />
+                <Route path="/thank-you" element={<ThankYou />} />
                 <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
         </>

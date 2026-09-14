@@ -7,8 +7,10 @@ import About from '../components/About';
 import ResourcesPreview from '../components/ResourcesPreview';
 import JoinUs from '../components/JoinUs';
 import Footer from '../components/Footer';
+import usePageMeta from '../lib/usePageMeta';
 
 export default function HomePage() {
+    usePageMeta({ path: '/' });
     return (
         <>
             <Navbar />

@@ -2,11 +2,12 @@
 
 Reference for anyone (human or agent) working on this repository.
 
-> **History:** this site was previously *Seniors Business Connect (SBC)* with a
-> blue palette and a single-page layout. In August 2026 it was rebranded to
-> *Seniors Professional Network (SPN)* and rebuilt around the member directory.
-> All `sbc-*` colour tokens and the old `Features.jsx` / `TabbedShowcase.jsx` /
-> `MemberDirectory.jsx` components were removed. Do not reintroduce them.
+> **History:** the previous version of this site had a blue palette and a
+> single-page layout. In August 2026 it was rebuilt as *Seniors Professional
+> Network (SPN)* around the member directory. The old colour tokens and the
+> `Features.jsx` / `TabbedShowcase.jsx` / `MemberDirectory.jsx` components were
+> removed. Do not reintroduce them. The network's former name should not appear
+> anywhere on the site.
 >
 > In September 2026 the visual language moved to the "paper cut-out" look
 > described in §2a (the `SPN-mockup-cards-v2.html` direction): hard offset
@@ -64,7 +65,7 @@ Everything sits on the page like a paper cut-out. The pieces, all defined in
 | `.pill` | Small black pill for a status line ("Part of the BC Community Response Networks"). |
 | `.badge-num` | Black numbered circle. Override size with `!h-7 !w-7 !text-xs` where needed. |
 | `.marker` | Highlighter stroke behind a few words of a heading. Put `.marker-head` on the heading so line-height leaves room for it. |
-| `.annotation` + `<Annotation>` | Handwritten note (Caveat) with a curved arrow. Decorative only, hidden below `lg`. |
+| `.annotation` + `<Annotation>` | Handwritten note (Caveat) with a curved arrow. Decorative only, hidden below `lg`. Keep the wording warm; never about cost or fees. |
 | `.shell` / `.shell-wide` / `.band` | Page gutter (80rem / 102rem) and vertical section rhythm. |
 
 Rules of thumb: borders are always 2px and always `ink-900`; shadows are never
@@ -152,6 +153,17 @@ The roster, plus `CATEGORIES`, `CATEGORY_ICONS`, and helpers
   their profile. Two Heart to Home Meals franchises are in the network and
   **must stay visibly distinct** — families need to reach the right one.
 
+### `businesses.js`
+Shared records for businesses with more than one member (Get Started Home
+Services, Comfort Keepers). The person stays the directory entry: everyone gets
+their own card and profile. But the business description, website, address,
+services, hours and logo live once in this file, and each member points at it
+with `business: '<key>'`. `withBusiness(member)` merges the two, with the
+person's own fields winning. Profiles list colleagues under "Also from …", and
+the home page hero never shows two people from the same business in one load.
+This is NOT for a parent company with different communities (Retirement
+Concepts, Aspira, Heart to Home territories); those stay separate listings.
+
 ### `events.js`
 Upcoming events for the home page. One object per event; past events drop off
 automatically, so the list doubles as a record. `audience` is `"public"` or
@@ -176,14 +188,14 @@ that does make those claims, date it and set a review reminder.
 | File | Role |
 |---|---|
 | `Navbar.jsx` | Sticky, gains a 2px ink border on scroll. Full-width mobile menu; body scroll locked while open. |
-| `Hero.jsx` | Headline with a marker highlight; member and industry counts are computed from the data. Four "pinned" member cards appear on `2xl` screens only — the slugs are listed in `PINNED` and missing ones are skipped. |
-| `IndustryGrid.jsx` | One card per industry with a live count and the first three company names. Card tones rotate by position. |
+| `Hero.jsx` | Headline with a marker highlight. Four "pinned" member cards appear on `2xl` screens only, drawn at random on every load (one per industry where possible). |
+| `IndustryGrid.jsx` | One cream card per industry with a live count and the first three company names. |
 | `HowItWorks.jsx` | Three numbered cards. |
-| `Events.jsx` | Reads `events.js`. Cascading month timeline on `xl`, stacked cards below. |
-| `MemberCard.jsx` | Shared by directory and related-members. |
-| `About.jsx` | Mission copy, carried over from SBC. Three pillars mirror the logo tagline. |
+| `Events.jsx` | Reads `events.js`. Five month columns on `xl` with cards level at the top, stacked cards below. |
+| `MemberCard.jsx` | Shared by directory and related-members. The whole card links to the profile via an overlay; phone, email and website links sit above it. |
+| `About.jsx` | Mission copy. Three pillars mirror the logo tagline. |
 | `ResourceCard.jsx` / `ResourcesPreview.jsx` | Guide cards; preview renders nothing when no articles are published. |
-| `JoinUs.jsx` | Apply / ask / newsletter cards. The newsletter form has no backend and opens the visitor's mail client. |
+| `JoinUs.jsx` | Contact cards for seniors and families, the newsletter, and a low-key note for professionals (membership is by invitation). The newsletter form has no backend and opens the visitor's mail client. |
 | `Annotation.jsx` | Handwritten note + arrow. |
 | `Footer.jsx` | Four columns. Logo is `brightness-0` `invert`ed to sit on dark. |
 

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useMemo } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import {
     Mail, Phone, Globe, MapPin, ArrowLeft, ArrowRight, Check, Clock, Languages, CalendarCheck,
@@ -7,7 +7,9 @@ import {
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import MemberCard from '../components/MemberCard';
-import { getMemberBySlug, members, displayName, initials } from '../data/members';
+import { getMemberBySlug, members, displayName, initials, colleaguesOf } from '../data/members';
+import { withBusiness } from '../data/businesses';
+import usePageMeta from '../lib/usePageMeta';
 
 const prettyUrl = (url) => url.replace(/^https?:\/\//, '').replace(/\/$/, '');
 const telHref = (phone) => `tel:${phone.replace(/[^\d+]/g, '')}`;
@@ -56,19 +58,23 @@ const socialLinks = (social = {}) =>
 
 export default function MemberProfile() {
     const { slug } = useParams();
-    const m = getMemberBySlug(slug);
-
-    // Keep the document title in step with the profile for shared links / history
-    useEffect(() => {
-        if (!m) return;
-        const previous = document.title;
-        document.title = `${displayName(m)} — ${m.company} | Seniors Professional Network`;
-        return () => { document.title = previous; };
-    }, [m]);
+    const person = getMemberBySlug(slug);
+    const m = useMemo(() => withBusiness(person), [person]);
+    // Title, description and share tags follow the profile for shared links
+    usePageMeta({
+        title: m ? `${displayName(m)}, ${m.company}` : 'Member directory',
+        description: m
+            ? (m.tagline || m.blurb || m.description || `${displayName(m)} of ${m.company}, a member of the Seniors Professional Network.`)
+            : undefined,
+        path: m ? `/directory/${m.slug}` : '/directory',
+    });
 
     if (!m) return <Navigate to="/directory" replace />;
 
-    const related = members.filter((o) => o.category === m.category && o.slug !== m.slug).slice(0, 3);
+    const colleagues = colleaguesOf(person);
+    const related = members
+        .filter((o) => o.category === m.category && o.slug !== m.slug && !colleagues.includes(o))
+        .slice(0, 3);
     const socials = socialLinks(m.social);
     const hasFacts = m.hours || m.languages?.length || m.years || m.established || m.freeConsultation != null;
 
@@ -133,7 +139,7 @@ export default function MemberProfile() {
                                 ) : (
                                     <p className="mt-3 text-lg text-ink-700">
                                         A fuller profile is on the way. In the meantime, the contact details opposite go
-                                        straight to {firstName(m.name)} — there is no referral form and no middleman.
+                                        straight to {firstName(m.name)}.
                                     </p>
                                 )}
                             </Card>
@@ -213,6 +219,34 @@ export default function MemberProfile() {
                                 </Card>
                             )}
 
+                            {m.locations?.length > 0 && (
+                                <Card title="Locations">
+                                    <ul className="mt-5 grid gap-4 sm:grid-cols-2">
+                                        {m.locations.map((loc) => (
+                                            <li key={loc.name} className="rounded-xl border-2 border-ink-900 bg-olive-50 p-5">
+                                                <p className="font-serif text-lg font-bold">{loc.name}</p>
+                                                <p className="mt-1.5 flex items-start gap-2 text-base text-ink-700">
+                                                    <MapPin size={18} aria-hidden="true" className="mt-1 shrink-0 text-olive-700" />
+                                                    <span>{loc.address}</span>
+                                                </p>
+                                                {loc.phone && (
+                                                    <p className="mt-1.5 flex items-center gap-2 text-base">
+                                                        <Phone size={18} aria-hidden="true" className="shrink-0 text-olive-700" />
+                                                        <a href={telHref(loc.phone)} className="font-medium text-olive-700 underline-offset-2 hover:underline">{loc.phone}</a>
+                                                    </p>
+                                                )}
+                                                {loc.website && (
+                                                    <p className="mt-1.5 flex items-center gap-2 text-base">
+                                                        <Globe size={18} aria-hidden="true" className="shrink-0 text-olive-700" />
+                                                        <a href={loc.website} target="_blank" rel="noopener noreferrer" className="break-all font-medium text-olive-700 underline-offset-2 hover:underline">{prettyUrl(loc.website)}</a>
+                                                    </p>
+                                                )}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </Card>
+                            )}
+
                             {m.areasServed?.length > 0 && (
                                 <Card title="Areas served">
                                     <ul className="mt-5 flex flex-wrap gap-2.5">
@@ -232,7 +266,7 @@ export default function MemberProfile() {
 
                         {/* ----------------------------------------------------- aside */}
                         <aside className="space-y-6">
-                            <div className="card p-7 lg:sticky lg:top-28">
+                            <div className="card p-7">
                                 <h2 className="text-xl font-semibold">Get in touch</h2>
                                 <p className="mt-2 text-base text-ink-600">You’ll reach {firstName(m.name)} directly.</p>
 
@@ -295,22 +329,22 @@ export default function MemberProfile() {
                                     </ul>
                                 )}
 
-                                {m.booking ? (
-                                    <>
-                                        <a href={m.booking} target="_blank" rel="noopener noreferrer" className="btn-primary mt-7 w-full">
-                                            Book or enquire
-                                            <ExternalLink size={18} aria-hidden="true" />
-                                        </a>
-                                        <a href={`mailto:${m.email}`} className="btn-plain mt-3 w-full">
-                                            Send an email
-                                        </a>
-                                    </>
-                                ) : (
-                                    <a href={`mailto:${m.email}`} className="btn-primary mt-7 w-full">
-                                        Send an email
+                                <a href={`mailto:${m.email}`} className="btn-primary mt-7 w-full">
+                                    Send an email
+                                </a>
+                                {m.booking && (
+                                    <a href={m.booking} target="_blank" rel="noopener noreferrer" className="btn-plain mt-3 w-full">
+                                        {m.bookingLabel || 'Book or enquire'}
+                                        <ExternalLink size={18} aria-hidden="true" />
                                     </a>
                                 )}
                             </div>
+
+                            {m.logo && (
+                                <div className="card flex items-center justify-center p-6">
+                                    <img src={m.logo} alt={`${m.company} logo`} className="max-h-28 w-auto max-w-full" />
+                                </div>
+                            )}
 
                             {hasFacts && (
                                 <div className="card-cream p-7">
@@ -334,6 +368,25 @@ export default function MemberProfile() {
                     </div>
                 </section>
 
+                {/* ------------------------------------------------------ colleagues */}
+                {colleagues.length > 0 && (
+                    <section className="border-t-2 border-ink-900 bg-parchment py-14 lg:py-20">
+                        <div className="shell">
+                            <p className="eyebrow">Also from {m.company}</p>
+                            <h2 className="mt-3 text-2xl font-semibold sm:text-3xl">
+                                {colleagues.length === 1 ? 'A colleague you can also reach' : 'Colleagues you can also reach'}
+                            </h2>
+                            <ul className="mt-8 grid gap-6 md:grid-cols-2 2xl:grid-cols-3">
+                                {colleagues.map((o) => (
+                                    <li key={o.slug}>
+                                        <MemberCard member={o} />
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </section>
+                )}
+
                 {/* --------------------------------------------------------- related */}
                 {related.length > 0 && (
                     <section className="border-t-2 border-ink-900 bg-olive-50/50 py-14 lg:py-20">
@@ -348,7 +401,7 @@ export default function MemberProfile() {
                                     <ArrowRight size={18} aria-hidden="true" />
                                 </Link>
                             </div>
-                            <ul className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                            <ul className="mt-8 grid gap-6 md:grid-cols-2 2xl:grid-cols-3">
                                 {related.map((o) => (
                                     <li key={o.slug}>
                                         <MemberCard member={o} />

@@ -146,11 +146,6 @@
     @apply flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-ink-900
            font-sans text-sm font-bold text-white;
   }
-
-  /* Row height for the events cascade grid; tightened on very wide screens */
-  .cascade { --evt-row: 2.55rem; }
-  @screen 2xl { .cascade { --evt-row: 2.1rem; } }
-  @media (min-width: 1800px) { .cascade { --evt-row: 1.95rem; } }
 }
 
 @layer utilities {

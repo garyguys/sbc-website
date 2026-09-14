@@ -32,3 +32,4 @@ SPN-website-preview.html
 # Working folders that are not part of the site
 Assets
 Claude outputs
+public/sitemap.xml

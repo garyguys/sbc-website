@@ -12,7 +12,6 @@ const STYLE = {
 };
 
 const COLUMNS = 5; // months shown on the wide timeline
-const ROWS_PER_CARD = 8;
 
 const audienceLabel = (e) => (e.audience === 'members' ? 'Members only' : 'Open to the public');
 
@@ -42,9 +41,9 @@ function EventBody({ event: e, tone, index, withMonth = false }) {
             {e.summary && <p className={`mt-2 text-base leading-relaxed ${s.body}`}>{e.summary}</p>}
             <div className={`mt-4 space-y-1.5 text-sm font-semibold ${s.meta}`}>
                 {e.time && (
-                    <p className="flex items-center gap-2">
-                        <Clock size={16} aria-hidden="true" />
-                        {e.time}
+                    <p className="flex items-start gap-2">
+                        <Clock size={16} aria-hidden="true" className="mt-0.5 shrink-0" />
+                        <span>{e.time}</span>
                     </p>
                 )}
                 <p className="flex items-start gap-2">
@@ -76,7 +75,6 @@ export default function Events() {
 
     // Only events that land inside the visible months go on the wide timeline
     const onTimeline = list.filter((e) => columnFor(e) >= 0);
-    const nextFreeRow = {};
 
     return (
         <section id="events" className="band scroll-mt-24 bg-olive-50/50">
@@ -85,8 +83,7 @@ export default function Events() {
                     <p className="eyebrow">What’s on</p>
                     <h2 className="mt-4 font-serif text-4xl font-bold sm:text-5xl">Upcoming events</h2>
                     <p className="mt-5 text-xl text-ink-700">
-                        Workshops and talks open to the public, plus the meetings where members get to know each
-                        other well enough to refer with confidence.
+                        Workshops, talks and community events run by the network and open to the public.
                     </p>
                 </div>
 
@@ -94,17 +91,17 @@ export default function Events() {
                     <div className="card mt-12 max-w-2xl p-8">
                         <h3 className="font-serif text-2xl font-bold">Nothing on the calendar just yet</h3>
                         <p className="mt-3 text-lg leading-relaxed text-ink-700">
-                            Members meet every month and public events are added here as they are confirmed. If you
-                            would like to hear about the next one, drop us a line.
+                            Public events are added here as they are confirmed. If you would like to hear about the
+                            next one, drop us a line.
                         </p>
-                        <a href="mailto:info@seniorsbc.com?subject=Upcoming%20events" className="btn-plain mt-7">
+                        <a href="#ask" className="btn-plain mt-7">
                             <Mail size={18} aria-hidden="true" />
-                            Email us
+                            Send us a message
                         </a>
                     </div>
                 ) : (
                     <>
-                        {/* Wide screens: cascading timeline under month headers */}
+                        {/* Wide screens: one column per month, cards level at the top */}
                         <div className="mt-12 hidden xl:block">
                             <div className="grid gap-x-4" style={{ gridTemplateColumns: `repeat(${COLUMNS}, minmax(0, 1fr))` }}>
                                 {months.map((m) => (
@@ -117,39 +114,22 @@ export default function Events() {
                                     </div>
                                 ))}
                             </div>
-                            <div
-                                className="cascade relative mt-4 grid gap-x-4"
-                                style={{ gridTemplateColumns: `repeat(${COLUMNS}, minmax(0, 1fr))`, gridAutoRows: 'var(--evt-row)' }}
-                            >
-                                <div
-                                    aria-hidden="true"
-                                    className="pointer-events-none absolute inset-0 grid gap-x-4"
-                                    style={{ gridTemplateColumns: `repeat(${COLUMNS}, minmax(0, 1fr))` }}
-                                >
-                                    {months.map((m) => (
-                                        <div key={m.key} className="border-l border-dashed border-ink-300 last:border-r" />
-                                    ))}
-                                </div>
-                                {onTimeline.map((e, i) => {
-                                    const tone = TONES[i % TONES.length];
-                                    const col = columnFor(e) + 1;
-                                    // Stagger down the page, but never overlap an earlier card in the same month
-                                    const row = Math.max(i * 2 + 1, nextFreeRow[col] || 1);
-                                    nextFreeRow[col] = row + ROWS_PER_CARD + 1;
-                                    return (
-                                        <article
-                                            key={`${e.date}-${e.title}`}
-                                            className={`${tone} card-press relative p-5`}
-                                            style={{
-                                                gridArea: `${row} / ${col} / span ${ROWS_PER_CARD}`,
-                                                alignSelf: 'start',
-                                                minHeight: `calc(var(--evt-row) * ${ROWS_PER_CARD})`,
-                                            }}
-                                        >
-                                            <EventBody event={e} tone={tone} index={i} />
-                                        </article>
-                                    );
-                                })}
+                            <div className="mt-4 grid gap-x-4" style={{ gridTemplateColumns: `repeat(${COLUMNS}, minmax(0, 1fr))` }}>
+                                {months.map((m, col) => (
+                                    <div key={m.key} className="flex min-h-[10rem] flex-col gap-5 border-l border-dashed border-ink-300 pb-4 pl-4 pr-1 pt-2 last:border-r">
+                                        {onTimeline
+                                            .map((e, i) => ({ e, i }))
+                                            .filter(({ e }) => columnFor(e) === col)
+                                            .map(({ e, i }) => {
+                                                const tone = TONES[i % TONES.length];
+                                                return (
+                                                    <article key={`${e.date}-${e.title}`} className={`${tone} card-press p-5`}>
+                                                        <EventBody event={e} tone={tone} index={i} />
+                                                    </article>
+                                                );
+                                            })}
+                                    </div>
+                                ))}
                             </div>
                         </div>
 
