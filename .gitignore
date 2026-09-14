@@ -28,3 +28,7 @@ _to_delete
 SPN-member-information.xlsx
 SPN-mockup-*.html
 SPN-website-preview.html
+
+# Working folders that are not part of the site
+Assets
+Claude outputs
