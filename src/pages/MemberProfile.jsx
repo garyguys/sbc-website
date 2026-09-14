@@ -138,8 +138,8 @@ export default function MemberProfile() {
                                     </div>
                                 ) : (
                                     <p className="mt-3 text-lg text-ink-700">
-                                        A fuller profile is on the way. In the meantime, the contact details opposite go
-                                        straight to {firstName(m.name)}.
+                                        More about {firstName(m.name)} is coming soon. In the meantime, the contact
+                                        details on this page reach {firstName(m.name)} directly.
                                     </p>
                                 )}
                             </Card>
