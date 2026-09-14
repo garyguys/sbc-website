@@ -87,7 +87,8 @@ export default function IndustryGrid() {
                                         <span className={`block font-serif text-xl font-bold leading-snug sm:text-2xl ${STYLE.title}`}>
                                             {g.category}
                                         </span>
-                                        <span className={`mt-1 block text-base leading-relaxed ${STYLE.body}`}>
+                                        {/* Company names are a desktop detail; on phones the card is just the industry */}
+                                        <span className={`mt-1 hidden text-base leading-relaxed sm:block ${STYLE.body}`}>
                                             {shown.join(' · ')}
                                             {more > 0 && ` · +${more} more`}
                                         </span>

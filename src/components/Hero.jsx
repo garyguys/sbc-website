@@ -109,10 +109,6 @@ export default function Hero() {
                         </Link>
                     </div>
 
-                    <p className="mt-7 flex items-center justify-center gap-2 text-base font-medium text-ink-700">
-                        <ShieldCheck size={18} aria-hidden="true" className="text-olive-700" />
-                        Every member is someone we know and meet with regularly.
-                    </p>
                 </div>
 
             </div>
