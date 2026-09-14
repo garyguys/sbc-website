@@ -28,17 +28,23 @@ There is no CMS. Three files in `src/data/` control almost everything:
 
 | File | Contains |
 |---|---|
-| `members.js` | The member roster, categories, and search behaviour |
-| `needs.js` | The "what do you need help with?" situations |
+| `members.js` | The member roster and industry categories |
+| `events.js` | Upcoming events for the home page |
 | `resources.js` | Guide articles |
 
 Adding a member means adding one object to the `members` array. The only
 required fields are `slug`, `name`, `company`, `email`, and `category`;
 everything else is optional and hidden when absent.
 
-⚠️ **Before deploying, search `src/data/members.js` for `TODO`.** It lists the
-items still awaiting confirmation, including one placeholder that is
-public-facing and must not ship as written.
+Adding an event means adding one object to the `events` array in `events.js`;
+past events drop off on their own.
+
+⚠️ **Before deploying, search `src/data/members.js` for `TODO`.** Phone numbers
+marked `roster` came from the internal member list rather than the public
+profile form and should be confirmed with the member.
+
+Member headshots go in `public/members/` and are referenced from the `photo`
+field on the member (e.g. `photo: '/members/karen-tyrell.jpg'`).
 
 ## Assets
 

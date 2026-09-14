@@ -4,7 +4,6 @@ import { ArrowLeft, ArrowRight, Info } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { getResourceBySlug } from '../data/resources';
-import { getNeed } from '../data/needs';
 
 function Block({ block }) {
     switch (block.t) {
@@ -28,9 +27,9 @@ function Block({ block }) {
             );
         case 'callout':
             return (
-                <aside className="mt-8 flex gap-4 rounded-2xl border-l-4 border-terra-500 bg-terra-50 p-6">
-                    <Info size={22} aria-hidden="true" className="mt-1 shrink-0 text-terra-600" />
-                    <p className="text-lg leading-relaxed text-terra-900">{block.text}</p>
+                <aside className="card-accent mt-8 flex gap-4 p-6">
+                    <Info size={22} aria-hidden="true" className="mt-1 shrink-0 text-ink-900" />
+                    <p className="text-lg font-medium leading-relaxed text-ink-900">{block.text}</p>
                 </aside>
             );
         default:
@@ -56,7 +55,7 @@ export default function ResourceArticle() {
             <Navbar />
             <main id="main">
                 <article>
-                    <header className="border-b border-ink-200 bg-olive-50/60">
+                    <header className="border-b-2 border-ink-900 bg-olive-50/50">
                         <div className="mx-auto max-w-3xl px-5 py-10 lg:px-8 lg:py-14">
                             <Link
                                 to="/resources"
@@ -80,25 +79,21 @@ export default function ResourceArticle() {
                                 <Block key={i} block={block} />
                             ))}
 
-                            {article.relatedNeeds?.length > 0 && (
-                                <div className="mt-16 rounded-2xl border border-ink-200 bg-white p-8">
-                                    <h2 className="text-xl font-semibold">Need someone to help with this?</h2>
-                                    <p className="mt-2 text-base text-ink-600">
+                            {article.relatedCategories?.length > 0 && (
+                                <div className="card-dark mt-16 p-8">
+                                    <h2 className="font-serif text-2xl font-bold text-parchment">Need someone to help with this?</h2>
+                                    <p className="mt-3 text-lg text-olive-100">
                                         These members of the network work on exactly this.
                                     </p>
-                                    <ul className="mt-5 flex flex-wrap gap-3">
-                                        {article.relatedNeeds.map((key) => {
-                                            const need = getNeed(key);
-                                            if (!need) return null;
-                                            return (
-                                                <li key={key}>
-                                                    <Link to={`/directory?need=${key}`} className="btn-primary !text-[0.95rem]">
-                                                        {need.label}
-                                                        <ArrowRight size={17} aria-hidden="true" />
-                                                    </Link>
-                                                </li>
-                                            );
-                                        })}
+                                    <ul className="mt-7 flex flex-wrap gap-3">
+                                        {article.relatedCategories.map((c) => (
+                                            <li key={c}>
+                                                <Link to={`/directory?category=${encodeURIComponent(c)}`} className="btn-accent">
+                                                    {c}
+                                                    <ArrowRight size={18} aria-hidden="true" />
+                                                </Link>
+                                            </li>
+                                        ))}
                                     </ul>
                                 </div>
                             )}

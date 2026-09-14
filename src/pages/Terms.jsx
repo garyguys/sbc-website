@@ -1,36 +1,32 @@
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { ArrowLeft, FileText } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 
 export default function Terms() {
     return (
         <>
         <Navbar />
-        <main id="main" className="min-h-screen bg-olive-50/60">
+        <main id="main" className="bg-parchment">
             {/* Header */}
-            <div className="bg-olive-800 text-white py-16 px-8">
-                <div className="mx-auto max-w-4xl">
-                    <Link to="/" className="inline-flex items-center gap-2 text-olive-200 hover:text-white transition-colors mb-8 text-sm font-medium">
-                        <ArrowLeft className="w-4 h-4" />
-                        Back to Home
+            <section className="border-b-2 border-ink-900 bg-olive-50/50">
+                <div className="mx-auto max-w-4xl px-5 py-12 lg:px-8 lg:py-16">
+                    <Link to="/" className="inline-flex items-center gap-2 text-base font-medium text-ink-600 hover:text-olive-700">
+                        <ArrowLeft size={18} aria-hidden="true" />
+                        Back to home
                     </Link>
-                    <div className="flex items-center gap-3 mb-4">
-                        <div className="p-2 rounded-full bg-terra-500/20">
-                            <FileText className="w-6 h-6 text-terra-300" />
-                        </div>
-                        <h1 className="text-3xl md:text-4xl font-bold tracking-tight">Terms of Service</h1>
-                    </div>
-                    <p className="text-olive-200 text-sm">Last updated: August 12, 2026</p>
+                    <p className="eyebrow mt-8">Legal</p>
+                    <h1 className="mt-4 font-serif text-4xl font-bold sm:text-5xl">Terms of Service</h1>
+                    <p className="mt-4 text-base font-medium text-ink-500">Last updated: August 12, 2026</p>
                 </div>
-            </div>
+            </section>
 
             {/* Content */}
-            <div className="mx-auto max-w-4xl px-8 py-16">
-                <div className="bg-white rounded-2xl shadow-sm border border-ink-200 p-8 md:p-12 space-y-8 text-ink-900 leading-relaxed">
+            <div className="mx-auto max-w-4xl px-5 py-12 lg:px-8 lg:py-16">
+                <div className="card space-y-8 p-8 text-lg leading-relaxed text-ink-800 md:p-12">
 
                     <section>
-                        <h2 className="text-xl font-bold mb-3">1. Acceptance of Terms</h2>
+                        <h2 className="mb-3 font-serif text-2xl font-bold text-ink-900">1. Acceptance of Terms</h2>
                         <p>
                             By accessing and using the Seniors Professional Network website at{' '}
                             <a href="https://www.seniorsbc.com" className="text-olive-700 hover:underline">www.seniorsbc.com</a>{' '}
@@ -40,7 +36,7 @@ export default function Terms() {
                     </section>
 
                     <section>
-                        <h2 className="text-xl font-bold mb-3">2. Description of Service</h2>
+                        <h2 className="mb-3 font-serif text-2xl font-bold text-ink-900">2. Description of Service</h2>
                         <p>
                             Seniors Professional Network ("SPN") provides an online directory and informational
                             platform connecting older adults, their families, and caregivers with professionals
@@ -51,7 +47,7 @@ export default function Terms() {
                     </section>
 
                     <section>
-                        <h2 className="text-xl font-bold mb-3">3. Use of the Site</h2>
+                        <h2 className="mb-3 font-serif text-2xl font-bold text-ink-900">3. Use of the Site</h2>
                         <p className="mb-4">You agree to use the Site only for lawful purposes and in accordance with these Terms. You agree not to:</p>
                         <ul className="list-disc pl-6 space-y-2">
                             <li>Use the Site in any way that violates any applicable law or regulation</li>
@@ -63,7 +59,7 @@ export default function Terms() {
                     </section>
 
                     <section>
-                        <h2 className="text-xl font-bold mb-3">4. Directory Listings</h2>
+                        <h2 className="mb-3 font-serif text-2xl font-bold text-ink-900">4. Directory Listings</h2>
                         <p className="mb-4">
                             The professionals listed in our directory have voluntarily provided their information
                             for inclusion. SBC does not:
@@ -80,7 +76,7 @@ export default function Terms() {
                     </section>
 
                     <section>
-                        <h2 className="text-xl font-bold mb-3">5. Intellectual Property</h2>
+                        <h2 className="mb-3 font-serif text-2xl font-bold text-ink-900">5. Intellectual Property</h2>
                         <p>
                             All content on the Site, including text, graphics, logos, icons, and software, is the
                             property of Seniors Professional Network or its content suppliers and is protected by
@@ -90,7 +86,7 @@ export default function Terms() {
                     </section>
 
                     <section>
-                        <h2 className="text-xl font-bold mb-3">6. Newsletter and Communications</h2>
+                        <h2 className="mb-3 font-serif text-2xl font-bold text-ink-900">6. Newsletter and Communications</h2>
                         <p>
                             By subscribing to our newsletter, you consent to receiving periodic emails about SBC
                             updates, community news, and relevant resources. You can unsubscribe at any time by
@@ -100,7 +96,7 @@ export default function Terms() {
                     </section>
 
                     <section>
-                        <h2 className="text-xl font-bold mb-3">7. Disclaimer of Warranties</h2>
+                        <h2 className="mb-3 font-serif text-2xl font-bold text-ink-900">7. Disclaimer of Warranties</h2>
                         <p>
                             The Site is provided on an "as is" and "as available" basis without warranties of any
                             kind, whether express or implied. SBC does not warrant that the Site will be uninterrupted,
@@ -110,7 +106,7 @@ export default function Terms() {
                     </section>
 
                     <section>
-                        <h2 className="text-xl font-bold mb-3">8. Limitation of Liability</h2>
+                        <h2 className="mb-3 font-serif text-2xl font-bold text-ink-900">8. Limitation of Liability</h2>
                         <p>
                             To the fullest extent permitted by law, Seniors Professional Network and its volunteers,
                             members, and affiliates shall not be liable for any direct, indirect, incidental,
@@ -120,7 +116,7 @@ export default function Terms() {
                     </section>
 
                     <section>
-                        <h2 className="text-xl font-bold mb-3">9. External Links</h2>
+                        <h2 className="mb-3 font-serif text-2xl font-bold text-ink-900">9. External Links</h2>
                         <p>
                             The Site may contain links to third-party websites (including member websites and
                             affiliate organizations). These links are provided for convenience only and do not
@@ -130,7 +126,7 @@ export default function Terms() {
                     </section>
 
                     <section>
-                        <h2 className="text-xl font-bold mb-3">10. Governing Law</h2>
+                        <h2 className="mb-3 font-serif text-2xl font-bold text-ink-900">10. Governing Law</h2>
                         <p>
                             These Terms are governed by and construed in accordance with the laws of the Province
                             of British Columbia, Canada, without regard to conflict of law principles. Any disputes
@@ -140,7 +136,7 @@ export default function Terms() {
                     </section>
 
                     <section>
-                        <h2 className="text-xl font-bold mb-3">11. Changes to Terms</h2>
+                        <h2 className="mb-3 font-serif text-2xl font-bold text-ink-900">11. Changes to Terms</h2>
                         <p>
                             We reserve the right to modify these Terms at any time. Changes will be posted on this
                             page with an updated "Last updated" date. Your continued use of the Site after changes
@@ -149,7 +145,7 @@ export default function Terms() {
                     </section>
 
                     <section>
-                        <h2 className="text-xl font-bold mb-3">12. Contact Us</h2>
+                        <h2 className="mb-3 font-serif text-2xl font-bold text-ink-900">12. Contact Us</h2>
                         <p>
                             If you have questions about these Terms of Service, please contact us:
                         </p>

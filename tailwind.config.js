@@ -57,6 +57,8 @@ export default {
         serif: ['"Source Serif 4 Variable"', 'Georgia', 'serif'],
         // Humanist sans for body copy — chosen for legibility at large sizes.
         sans: ['"Inter Variable"', 'system-ui', 'sans-serif'],
+        // Handwritten annotations ("Genuinely free — we are not a lead broker").
+        hand: ['"Caveat Variable"', 'cursive'],
       },
       fontSize: {
         // Base scale nudged up throughout: the primary audience is seniors
@@ -69,8 +71,11 @@ export default {
         'prose-comfortable': '68ch',
       },
       boxShadow: {
-        'card': '0 1px 2px rgba(22,21,15,0.04), 0 4px 16px rgba(22,21,15,0.06)',
-        'card-hover': '0 2px 4px rgba(22,21,15,0.06), 0 12px 32px rgba(22,21,15,0.10)',
+        // The "paper cut-out" look: a solid ink offset instead of a blur.
+        // Cards use hard, buttons and chips use hard-sm; hover nudges the
+        // element into its own shadow (see .card-press in index.css).
+        'hard': '5px 5px 0 0 #16150F',
+        'hard-sm': '3px 3px 0 0 #16150F',
         'lift': '0 12px 40px rgba(78,81,17,0.14)',
       },
       keyframes: {

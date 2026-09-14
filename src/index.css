@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+/* =============================================================================
+   Seniors Professional Network — global styles
+
+   The look is "paper cut-outs": white cards with a 2px ink border and a solid
+   offset shadow, olive accents, a serif for headings, and the occasional
+   handwritten note in the margin. See DESIGN.md for the reasoning.
+   ============================================================================= */
+
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -11,7 +19,7 @@
 
   body {
     @apply bg-parchment text-ink-900 font-sans antialiased
-           selection:bg-olive-100 selection:text-olive-900;
+           selection:bg-olive-200 selection:text-olive-900;
   }
 
   h1, h2, h3, h4 {
@@ -39,37 +47,110 @@
 }
 
 @layer components {
-  .eyebrow {
-    @apply font-sans text-xs font-semibold uppercase tracking-[0.18em] text-terra-600;
+  /* ---------------------------------------------------------------- layout */
+  .shell {
+    @apply mx-auto w-full max-w-7xl px-5 lg:px-8;
   }
 
+  .shell-wide {
+    @apply mx-auto w-full max-w-[102rem] px-5 lg:px-8;
+  }
+
+  .band {
+    @apply py-20 lg:py-28;
+  }
+
+  /* ------------------------------------------------------------------ type */
+  .eyebrow {
+    @apply font-sans text-[0.8rem] font-semibold uppercase tracking-[0.2em] text-terra-600;
+  }
+
+  /* Highlighter stroke behind a few words of a heading */
+  .marker {
+    @apply rounded-md bg-olive-300 text-ink-900;
+    padding: 0.02em 0.28em;
+    margin-inline: -0.16em;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
+
+  h1.marker-head, h2.marker-head, h3.marker-head {
+    line-height: 1.46;
+  }
+
+  /* Handwritten margin note */
+  .annotation {
+    @apply font-hand text-2xl text-terra-600;
+    line-height: 1.25;
+  }
+
+  /* ----------------------------------------------------------------- cards */
+  .card {
+    @apply rounded-2xl border-2 border-ink-900 bg-white shadow-hard
+           transition-[transform,box-shadow] duration-150;
+  }
+
+  .card-accent {
+    @apply card bg-olive-300;
+  }
+
+  .card-cream {
+    @apply card bg-olive-50;
+  }
+
+  .card-dark {
+    @apply card bg-olive-800 text-parchment;
+  }
+
+  /* Pressable cards sink into their shadow on hover */
+  .card-press:hover {
+    @apply translate-x-[2px] translate-y-[2px] shadow-hard-sm;
+  }
+
+  /* --------------------------------------------------------------- buttons */
   .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-full font-sans font-semibold
-           transition-all duration-200 min-h-[3rem] px-7 text-base;
+    @apply inline-flex min-h-[3.5rem] items-center justify-center gap-3 rounded-full border-2 border-ink-900
+           px-7 font-sans text-base font-bold uppercase tracking-[0.06em] shadow-hard-sm
+           transition-[transform,box-shadow] duration-150
+           hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none;
   }
 
   .btn-primary {
-    @apply btn bg-olive-700 text-white hover:bg-olive-800 shadow-sm hover:shadow-lift;
+    @apply btn bg-olive-700 text-white;
   }
 
   .btn-accent {
-    @apply btn bg-terra-500 text-white hover:bg-terra-600 shadow-sm hover:shadow-lift;
+    @apply btn bg-olive-300 text-ink-900;
   }
 
-  .btn-outline {
-    @apply btn border-2 border-olive-700 text-olive-800 hover:bg-olive-50;
+  .btn-plain {
+    @apply btn bg-white text-ink-900;
   }
 
-  .card {
-    @apply rounded-2xl border border-ink-200 bg-white shadow-card
-           transition-shadow duration-200;
+  /* Round arrow badge tucked into the right end of a button */
+  .btn-arrow {
+    @apply -mr-4 flex h-9 w-9 items-center justify-center rounded-full bg-white/95 text-ink-900;
   }
 
-  /* Decorative laurel-inspired rule that echoes the logo's wreath */
-  .rule-dot::after {
-    content: '';
-    @apply mt-5 block h-px w-full bg-gradient-to-r from-transparent via-olive-300 to-transparent;
+  .btn-arrow-invert {
+    @apply -mr-4 flex h-9 w-9 items-center justify-center rounded-full bg-ink-900 text-white;
   }
+
+  /* ----------------------------------------------------------------- bits */
+  .pill {
+    @apply inline-flex items-center gap-2 rounded-full border-2 border-ink-900 bg-ink-900
+           px-5 py-2 font-sans text-sm font-semibold text-white;
+  }
+
+  .badge-num {
+    @apply flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-ink-900
+           font-sans text-sm font-bold text-white;
+  }
+
+  /* Row height for the events cascade grid; tightened on very wide screens */
+  .cascade { --evt-row: 2.55rem; }
+  @screen 2xl { .cascade { --evt-row: 2.1rem; } }
+  @media (min-width: 1800px) { .cascade { --evt-row: 1.95rem; } }
 }
 
 @layer utilities {

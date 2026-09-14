@@ -7,6 +7,7 @@ import { BrowserRouter } from 'react-router-dom'
 // visitor is shared with a third party just to draw text.
 import '@fontsource-variable/inter'
 import '@fontsource-variable/source-serif-4'
+import '@fontsource-variable/caveat'
 
 import './index.css'
 import App from './App.jsx'

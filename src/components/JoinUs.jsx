@@ -1,82 +1,102 @@
-import { ArrowRight, Mail, Send } from 'lucide-react';
+import { ArrowRight, Check, Mail } from 'lucide-react';
 
 const CONTACT_EMAIL = 'info@seniorsbc.com';
 
+const BENEFITS = [
+    'A listing in the public directory',
+    'Referrals from members in other industries',
+    'Regular network meetings',
+    'A voice in how the network is run',
+];
+
 export default function JoinUs() {
     return (
-        <section id="join" className="scroll-mt-24 bg-olive-50/60 py-20 lg:py-28">
-            <div className="mx-auto max-w-5xl px-5 lg:px-8">
-                {/* ----------------------------------------------------- newsletter */}
-                <div className="rounded-3xl bg-olive-800 px-7 py-12 text-center sm:px-12">
-                    <h2 className="text-3xl font-bold text-white sm:text-4xl">Stay connected with us</h2>
-                    <p className="mx-auto mt-4 max-w-2xl text-lg text-olive-100">
-                        Occasional updates on workshops, community events, safety resources, and
-                        information worth having before you need it.
-                    </p>
-
-                    {/*
-                      NOTE FOR GARRETT: this form has no backend yet. It currently opens the
-                      visitor's email client. Wire it to Mailchimp / Brevo / Buttondown and
-                      replace the handler below when you pick a provider.
-                    */}
-                    <form
-                        className="mx-auto mt-8 flex max-w-lg flex-col gap-3 sm:flex-row"
-                        action={`mailto:${CONTACT_EMAIL}`}
-                        method="post"
-                        encType="text/plain"
-                    >
-                        <label htmlFor="newsletter-email" className="sr-only">
-                            Your email address
-                        </label>
-                        <input
-                            id="newsletter-email"
-                            name="email"
-                            type="email"
-                            required
-                            placeholder="Enter your email address"
-                            className="h-14 flex-1 rounded-full border-2 border-transparent bg-white px-6 text-base
-                                       text-ink-900 placeholder:text-ink-500 focus:border-terra-300 focus:outline-none"
-                        />
-                        <button type="submit" className="btn-accent !h-14 shrink-0">
-                            Subscribe
-                            <Send size={18} aria-hidden="true" />
-                        </button>
-                    </form>
+        <section id="join" className="band scroll-mt-24 bg-parchment">
+            <div className="shell">
+                <div className="mx-auto max-w-2xl text-center">
+                    <p className="eyebrow">Membership &amp; contact</p>
+                    <h2 className="mt-4 font-serif text-4xl font-bold sm:text-5xl">Join us, or just ask us</h2>
                 </div>
 
-                {/* -------------------------------------------------------- two CTAs */}
-                <div className="mt-6 grid gap-6 md:grid-cols-2">
-                    <div className="card flex flex-col p-8">
-                        <h3 className="text-xl font-semibold">
-                            Are you a professional who serves older adults?
-                        </h3>
-                        <p className="mt-3 flex-1 text-base text-ink-700">
-                            Membership is by application. Members meet regularly, refer to one another,
-                            and are expected to hold a high standard in how they work with seniors and
-                            their families.
+                <div className="mt-14 grid gap-6 lg:grid-cols-3">
+                    {/* Professionals */}
+                    <div className="card-dark flex flex-col p-8 lg:row-span-2">
+                        <p className="inline-flex w-fit rounded-full border-2 border-ink-900 bg-olive-300 px-4 py-1 text-sm font-bold text-ink-900">
+                            For professionals
                         </p>
-                        <a
-                            href={`mailto:${CONTACT_EMAIL}?subject=Membership%20Application`}
-                            className="btn-primary mt-7 w-full sm:w-auto"
-                        >
-                            Apply to join
-                            <ArrowRight size={18} aria-hidden="true" />
+                        <h3 className="mt-6 font-serif text-3xl font-bold text-parchment">Apply to join</h3>
+                        <p className="mt-4 text-lg leading-relaxed text-olive-100">
+                            Membership is by application. Members meet regularly, refer to one another, and are
+                            expected to hold a high standard in how they work with seniors and their families.
+                        </p>
+                        <ul className="mt-8 space-y-3.5">
+                            {BENEFITS.map((b) => (
+                                <li key={b} className="flex items-start gap-3 text-base text-parchment">
+                                    <span
+                                        aria-hidden="true"
+                                        className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-olive-300 text-ink-900"
+                                    >
+                                        <Check size={14} strokeWidth={3} />
+                                    </span>
+                                    {b}
+                                </li>
+                            ))}
+                        </ul>
+                        <div className="flex-1" />
+                        <a href={`mailto:${CONTACT_EMAIL}?subject=Membership%20Application`} className="btn-accent mt-9 w-full">
+                            Apply now
+                            <span className="btn-arrow-invert">
+                                <ArrowRight size={18} aria-hidden="true" />
+                            </span>
                         </a>
                     </div>
 
-                    <div className="card flex flex-col p-8">
-                        <h3 className="text-xl font-semibold">Not sure who you need?</h3>
-                        <p className="mt-3 flex-1 text-base text-ink-700">
-                            Tell us what you are dealing with and we will point you toward the right
-                            member — or toward someone outside the network if that serves you better.
+                    {/* Families */}
+                    <div className="card flex flex-col p-8 lg:col-span-2">
+                        <h3 className="font-serif text-2xl font-bold">Not sure who you need?</h3>
+                        <p className="mt-3 flex-1 text-lg leading-relaxed text-ink-700">
+                            Tell us what you are dealing with and we will point you toward the right member — or
+                            toward someone outside the network if that serves you better.
                         </p>
-                        <a
-                            href={`mailto:${CONTACT_EMAIL}`}
-                            className="btn-outline mt-7 w-full sm:w-auto"
-                        >
+                        <a href={`mailto:${CONTACT_EMAIL}`} className="btn-plain mt-7 w-full sm:w-auto">
                             <Mail size={18} aria-hidden="true" />
                             Email us
                         </a>
+                    </div>
+
+                    {/* Newsletter.
+                        NOTE: there is no mailing-list backend yet. The form opens the visitor's
+                        email client addressed to SPN with their address in the body, which is
+                        honest and works everywhere. Swap `action` for a real list provider when
+                        one is chosen. */}
+                    <div className="card-cream flex flex-col p-8 lg:col-span-2">
+                        <h3 className="font-serif text-2xl font-bold">Stay in touch</h3>
+                        <p className="mt-3 text-lg leading-relaxed text-ink-700">
+                            Occasional notes on workshops, community events and safety resources. Nothing else, and
+                            never your details to anyone.
+                        </p>
+                        <form
+                            className="mt-7 flex flex-col gap-3 sm:flex-row"
+                            action={`mailto:${CONTACT_EMAIL}?subject=Please%20add%20me%20to%20the%20SPN%20mailing%20list`}
+                            method="post"
+                            encType="text/plain"
+                        >
+                            <label htmlFor="newsletter-email" className="sr-only">
+                                Your email address
+                            </label>
+                            <input
+                                id="newsletter-email"
+                                type="email"
+                                name="email"
+                                required
+                                placeholder="your@email.com"
+                                className="h-14 flex-1 rounded-full border-2 border-ink-900 bg-white px-6 text-base
+                                           text-ink-900 placeholder:text-ink-500 focus:outline-none focus:ring-2 focus:ring-olive-700"
+                            />
+                            <button type="submit" className="btn-primary shrink-0">
+                                Subscribe
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>

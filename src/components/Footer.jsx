@@ -6,7 +6,7 @@ export default function Footer() {
 
     return (
         <footer className="bg-ink-900 pb-8 pt-16 text-ink-300">
-            <div className="mx-auto max-w-7xl px-5 lg:px-8">
+            <div className="shell">
                 <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
                     {/* Brand */}
                     <div className="lg:col-span-1">
@@ -34,6 +34,7 @@ export default function Footer() {
                         <ul className="mt-5 space-y-3 text-base">
                             <li><Link to="/directory" className="text-ink-400 hover:text-white">Member directory</Link></li>
                             <li><Link to="/resources" className="text-ink-400 hover:text-white">Resources</Link></li>
+                            <li><Link to="/#events" className="text-ink-400 hover:text-white">Events</Link></li>
                             <li><Link to="/#about" className="text-ink-400 hover:text-white">About us</Link></li>
                             <li><Link to="/#how-it-works" className="text-ink-400 hover:text-white">How it works</Link></li>
                             <li><Link to="/#join" className="text-ink-400 hover:text-white">Join the network</Link></li>

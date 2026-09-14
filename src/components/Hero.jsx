@@ -1,109 +1,93 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Search, MapPin, ArrowRight } from 'lucide-react';
-import { members } from '../data/members';
+import { Link } from 'react-router-dom';
+import { ShieldCheck, ArrowRight } from 'lucide-react';
+import { members, CATEGORIES, getMemberBySlug, initials } from '../data/members';
+import Annotation from './Annotation';
+
+/**
+ * Four "polaroid" member cards pinned around the hero on very wide screens.
+ * Pick members from different industries so the spread reads as a network.
+ * Slugs that no longer exist are skipped, so removing a member never breaks
+ * the home page.
+ */
+const PINNED = [
+    { slug: 'karen-tyrell', pos: 'left-0 top-0 -rotate-6', tone: 'bg-olive-300 text-ink-900' },
+    { slug: 'sadhana-kumar', pos: 'right-0 top-6 rotate-6', tone: 'bg-terra-500 text-white' },
+    { slug: 'garrett-robertson', pos: 'left-10 bottom-2 rotate-3', tone: 'bg-olive-800 text-parchment' },
+    { slug: 'louise-taylor', pos: 'right-10 bottom-6 -rotate-3', tone: 'bg-olive-100 text-ink-900' },
+];
 
 export default function Hero() {
-    const [q, setQ] = useState('');
-    const navigate = useNavigate();
-
-    const submit = (e) => {
-        e.preventDefault();
-        const query = q.trim();
-        navigate(query ? `/directory?q=${encodeURIComponent(query)}` : '/directory');
-    };
-
     const memberCount = members.length;
-    const categoryCount = new Set(members.map((m) => m.category)).size;
+    const industryCount = CATEGORIES.filter((c) => members.some((m) => m.category === c)).length;
+    const pinned = PINNED.map((p) => ({ ...p, member: getMemberBySlug(p.slug) })).filter((p) => p.member);
 
     return (
-        <section className="relative overflow-hidden bg-parchment">
-            {/* Soft olive wash, echoing the wreath side of the logo */}
-            <div
-                aria-hidden="true"
-                className="pointer-events-none absolute -left-40 -top-40 h-[34rem] w-[34rem] rounded-full bg-olive-100/50 blur-3xl"
-            />
-            <div
-                aria-hidden="true"
-                className="pointer-events-none absolute -right-32 top-24 h-[26rem] w-[26rem] rounded-full bg-terra-100/40 blur-3xl"
-            />
+        <section className="relative overflow-hidden bg-olive-50/50">
+            <div className="shell relative pb-16 pt-16 lg:pb-20 lg:pt-24 2xl:pb-24 2xl:pt-28">
+                {/* Pinned member cards — decorative on 2xl and up only */}
+                <div className="pointer-events-none absolute inset-x-0 bottom-8 top-16 hidden 2xl:block">
+                    <div className="pointer-events-auto relative mx-auto h-full max-w-[88rem]">
+                        {pinned.map(({ member: m, pos, tone }) => (
+                            <Link
+                                key={m.slug}
+                                to={`/directory/${m.slug}`}
+                                className={`absolute ${pos} w-[13.5rem] rounded-2xl border-2 border-ink-900 bg-white p-2.5
+                                            shadow-hard transition-transform duration-200 hover:-translate-y-1`}
+                            >
+                                {m.photo ? (
+                                    <img src={m.photo} alt="" className="h-24 w-full rounded-xl border-2 border-ink-900 object-cover" />
+                                ) : (
+                                    <span
+                                        aria-hidden="true"
+                                        className={`flex h-24 items-center justify-center rounded-xl font-serif text-3xl font-bold ${tone}`}
+                                    >
+                                        {initials(m.name)}
+                                    </span>
+                                )}
+                                <span className="mt-2.5 block px-1 pb-1">
+                                    <span className="block font-serif text-base font-bold leading-tight">{m.name}</span>
+                                    <span className="mt-0.5 block text-sm text-ink-600">{m.company}</span>
+                                </span>
+                            </Link>
+                        ))}
+                    </div>
+                </div>
 
-            <div className="relative mx-auto grid max-w-7xl items-center gap-14 px-5 py-16 lg:grid-cols-[1.15fr_1fr] lg:gap-20 lg:px-8 lg:py-24">
-                <div>
-                    <p className="eyebrow">Connect · Collaborate · Support</p>
-
-                    <h1 className="mt-5 text-4xl font-bold leading-[1.12] tracking-tight sm:text-5xl lg:text-[3.4rem]">
-                        Trusted professionals who
-                        <span className="text-olive-700"> understand seniors</span>
+                <div className="relative mx-auto max-w-2xl text-center">
+                    <p className="pill mx-auto">
+                        <ShieldCheck size={16} aria-hidden="true" />
+                        Part of the BC Community Response Networks
+                    </p>
+                    <p className="eyebrow mt-8">Connect · Collaborate · Support</p>
+                    <h1 className="marker-head mt-5 font-serif text-[2.6rem] font-bold tracking-tight sm:text-6xl">
+                        The people you’d want looking after <span className="marker">your own parents.</span>
                     </h1>
-
-                    <p className="mt-6 max-w-xl text-lg text-ink-700 sm:text-xl">
-                        Finding the right help for an ageing parent — or for yourself — should not
-                        mean starting with a search engine and hoping. Our members work with seniors
-                        every day, and they know each other.
+                    <p className="mx-auto mt-7 max-w-xl text-xl text-ink-700">
+                        {memberCount} trusted professionals across {industryCount} industries, serving seniors and
+                        their families in Metro Vancouver and the Fraser Valley.
                     </p>
 
-                    <form onSubmit={submit} className="mt-9 max-w-xl" role="search">
-                        <label htmlFor="hero-search" className="sr-only">
-                            Search the member directory
-                        </label>
-                        <div className="flex flex-col gap-3 sm:flex-row">
-                            <div className="relative flex-1">
-                                <Search
-                                    size={22}
-                                    aria-hidden="true"
-                                    className="pointer-events-none absolute left-5 top-1/2 -translate-y-1/2 text-ink-400"
-                                />
-                                <input
-                                    id="hero-search"
-                                    type="search"
-                                    value={q}
-                                    onChange={(e) => setQ(e.target.value)}
-                                    placeholder="Try “home care”, “dementia”, or “downsizing”"
-                                    className="h-14 w-full rounded-full border-2 border-ink-200 bg-white pl-14 pr-5 text-base
-                                               placeholder:text-ink-500 focus:border-olive-700 focus:outline-none"
-                                />
-                            </div>
-                            <button type="submit" className="btn-primary shrink-0 !h-14">
-                                Search
-                            </button>
-                        </div>
-                    </form>
-
-                    <p className="mt-5 flex flex-wrap items-center gap-x-2 gap-y-1 text-base text-ink-600">
-                        <MapPin size={18} aria-hidden="true" className="text-olive-600" />
-                        <span>
-                            <strong className="font-semibold text-ink-800">{memberCount} members</strong>{' '}
-                            across {categoryCount} fields, serving Metro Vancouver &amp; the Fraser Valley
-                        </span>
-                    </p>
-
-                    <p className="mt-3">
-                        <Link
-                            to="/directory"
-                            className="inline-flex items-center gap-1.5 text-base font-semibold text-terra-600 underline-offset-4 hover:underline"
-                        >
-                            Browse the full directory
-                            <ArrowRight size={17} aria-hidden="true" />
+                    <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+                        <Link to="/directory" className="btn-accent w-full sm:w-auto">
+                            Browse the directory
+                            <span className="btn-arrow-invert">
+                                <ArrowRight size={18} aria-hidden="true" />
+                            </span>
                         </Link>
+                        <Link to="/#how-it-works" className="btn-plain w-full sm:w-auto">
+                            How it works
+                        </Link>
+                    </div>
+
+                    <p className="mt-7 flex items-center justify-center gap-2 text-base font-medium text-ink-700">
+                        <ShieldCheck size={18} aria-hidden="true" className="text-olive-700" />
+                        No referral fees. You contact members directly.
                     </p>
                 </div>
 
-                {/* Logo mark, used as the hero's single visual anchor */}
-                <div className="relative hidden justify-self-center lg:block">
-                    <div
-                        aria-hidden="true"
-                        className="absolute inset-0 -m-10 rounded-full bg-gradient-to-br from-olive-50 via-parchment to-terra-50"
-                    />
-                    <img
-                        src="/spn-mark.png"
-                        alt=""
-                        aria-hidden="true"
-                        width={512}
-                        height={489}
-                        className="relative w-full max-w-[26rem] drop-shadow-sm"
-                    />
-                </div>
+                <Annotation side="left" className="absolute bottom-10 right-1/2 hidden translate-x-[21rem] 2xl:flex">
+                    {'Real people,\nnot a lead form'}
+                </Annotation>
             </div>
         </section>
     );

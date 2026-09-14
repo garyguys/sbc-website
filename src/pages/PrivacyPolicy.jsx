@@ -1,36 +1,32 @@
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { ArrowLeft, Shield } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 
 export default function PrivacyPolicy() {
     return (
         <>
         <Navbar />
-        <main id="main" className="min-h-screen bg-olive-50/60">
+        <main id="main" className="bg-parchment">
             {/* Header */}
-            <div className="bg-olive-800 text-white py-16 px-8">
-                <div className="mx-auto max-w-4xl">
-                    <Link to="/" className="inline-flex items-center gap-2 text-olive-200 hover:text-white transition-colors mb-8 text-sm font-medium">
-                        <ArrowLeft className="w-4 h-4" />
-                        Back to Home
+            <section className="border-b-2 border-ink-900 bg-olive-50/50">
+                <div className="mx-auto max-w-4xl px-5 py-12 lg:px-8 lg:py-16">
+                    <Link to="/" className="inline-flex items-center gap-2 text-base font-medium text-ink-600 hover:text-olive-700">
+                        <ArrowLeft size={18} aria-hidden="true" />
+                        Back to home
                     </Link>
-                    <div className="flex items-center gap-3 mb-4">
-                        <div className="p-2 rounded-full bg-terra-500/20">
-                            <Shield className="w-6 h-6 text-terra-300" />
-                        </div>
-                        <h1 className="text-3xl md:text-4xl font-bold tracking-tight">Privacy Policy</h1>
-                    </div>
-                    <p className="text-olive-200 text-sm">Last updated: August 12, 2026</p>
+                    <p className="eyebrow mt-8">Legal</p>
+                    <h1 className="mt-4 font-serif text-4xl font-bold sm:text-5xl">Privacy Policy</h1>
+                    <p className="mt-4 text-base font-medium text-ink-500">Last updated: August 12, 2026</p>
                 </div>
-            </div>
+            </section>
 
             {/* Content */}
-            <div className="mx-auto max-w-4xl px-8 py-16">
-                <div className="bg-white rounded-2xl shadow-sm border border-ink-200 p-8 md:p-12 space-y-8 text-ink-900 leading-relaxed">
+            <div className="mx-auto max-w-4xl px-5 py-12 lg:px-8 lg:py-16">
+                <div className="card space-y-8 p-8 text-lg leading-relaxed text-ink-800 md:p-12">
 
                     <section>
-                        <h2 className="text-xl font-bold mb-3">1. Introduction</h2>
+                        <h2 className="mb-3 font-serif text-2xl font-bold text-ink-900">1. Introduction</h2>
                         <p>
                             Seniors Professional Network ("SPN", "we", "our", or "us") operates the website{' '}
                             <a href="https://www.seniorsbc.com" className="text-olive-700 hover:underline">www.seniorsbc.com</a>{' '}
@@ -41,7 +37,7 @@ export default function PrivacyPolicy() {
                     </section>
 
                     <section>
-                        <h2 className="text-xl font-bold mb-3">2. Information We Collect</h2>
+                        <h2 className="mb-3 font-serif text-2xl font-bold text-ink-900">2. Information We Collect</h2>
                         <h3 className="font-semibold mb-2">Personal Information</h3>
                         <p className="mb-4">
                             We may collect personal information that you voluntarily provide when you:
@@ -62,7 +58,7 @@ export default function PrivacyPolicy() {
                     </section>
 
                     <section>
-                        <h2 className="text-xl font-bold mb-3">3. How We Use Your Information</h2>
+                        <h2 className="mb-3 font-serif text-2xl font-bold text-ink-900">3. How We Use Your Information</h2>
                         <p className="mb-4">We use the information we collect to:</p>
                         <ul className="list-disc pl-6 space-y-2">
                             <li>Operate and maintain the Site</li>
@@ -75,7 +71,7 @@ export default function PrivacyPolicy() {
                     </section>
 
                     <section>
-                        <h2 className="text-xl font-bold mb-3">4. Member Directory</h2>
+                        <h2 className="mb-3 font-serif text-2xl font-bold text-ink-900">4. Member Directory</h2>
                         <p>
                             The Site features a directory of professionals who serve older adults in Metro Vancouver
                             and the Fraser Valley, BC. Directory members have consented to the display of their
@@ -87,7 +83,7 @@ export default function PrivacyPolicy() {
                     </section>
 
                     <section>
-                        <h2 className="text-xl font-bold mb-3">5. Cookies and Tracking Technologies</h2>
+                        <h2 className="mb-3 font-serif text-2xl font-bold text-ink-900">5. Cookies and Tracking Technologies</h2>
                         <p>
                             The Site may use cookies and similar tracking technologies to enhance your browsing
                             experience and collect analytics data. You can control cookies through your browser
@@ -96,7 +92,7 @@ export default function PrivacyPolicy() {
                     </section>
 
                     <section>
-                        <h2 className="text-xl font-bold mb-3">6. Third-Party Services</h2>
+                        <h2 className="mb-3 font-serif text-2xl font-bold text-ink-900">6. Third-Party Services</h2>
                         <p>
                             We may use third-party services (such as analytics providers and hosting platforms)
                             that collect, monitor, and analyze information to help us improve the Site. These
@@ -106,7 +102,7 @@ export default function PrivacyPolicy() {
                     </section>
 
                     <section>
-                        <h2 className="text-xl font-bold mb-3">7. Data Sharing and Disclosure</h2>
+                        <h2 className="mb-3 font-serif text-2xl font-bold text-ink-900">7. Data Sharing and Disclosure</h2>
                         <p className="mb-4">We do not sell your personal information. We may share information in the following circumstances:</p>
                         <ul className="list-disc pl-6 space-y-2">
                             <li><strong>With your consent:</strong> When you have given us explicit permission.</li>
@@ -117,7 +113,7 @@ export default function PrivacyPolicy() {
                     </section>
 
                     <section>
-                        <h2 className="text-xl font-bold mb-3">8. Data Security</h2>
+                        <h2 className="mb-3 font-serif text-2xl font-bold text-ink-900">8. Data Security</h2>
                         <p>
                             We implement reasonable administrative, technical, and physical safeguards to protect
                             your personal information. However, no method of transmission over the internet or
@@ -126,7 +122,7 @@ export default function PrivacyPolicy() {
                     </section>
 
                     <section>
-                        <h2 className="text-xl font-bold mb-3">9. Your Rights</h2>
+                        <h2 className="mb-3 font-serif text-2xl font-bold text-ink-900">9. Your Rights</h2>
                         <p className="mb-4">Depending on your jurisdiction, you may have the right to:</p>
                         <ul className="list-disc pl-6 space-y-2">
                             <li>Access the personal information we hold about you</li>
@@ -141,7 +137,7 @@ export default function PrivacyPolicy() {
                     </section>
 
                     <section>
-                        <h2 className="text-xl font-bold mb-3">10. Children's Privacy</h2>
+                        <h2 className="mb-3 font-serif text-2xl font-bold text-ink-900">10. Children's Privacy</h2>
                         <p>
                             The Site is not directed at individuals under the age of 18. We do not knowingly
                             collect personal information from children. If you believe we have inadvertently
@@ -150,7 +146,7 @@ export default function PrivacyPolicy() {
                     </section>
 
                     <section>
-                        <h2 className="text-xl font-bold mb-3">11. Changes to This Policy</h2>
+                        <h2 className="mb-3 font-serif text-2xl font-bold text-ink-900">11. Changes to This Policy</h2>
                         <p>
                             We may update this Privacy Policy from time to time. Any changes will be posted on
                             this page with an updated "Last updated" date. We encourage you to review this policy
@@ -159,7 +155,7 @@ export default function PrivacyPolicy() {
                     </section>
 
                     <section>
-                        <h2 className="text-xl font-bold mb-3">12. Contact Us</h2>
+                        <h2 className="mb-3 font-serif text-2xl font-bold text-ink-900">12. Contact Us</h2>
                         <p>
                             If you have questions or concerns about this Privacy Policy, please contact us:
                         </p>

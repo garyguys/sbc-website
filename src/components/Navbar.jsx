@@ -1,17 +1,18 @@
 import { useEffect, useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
-import { Menu, X, Search } from 'lucide-react';
+import { Link, NavLink, useLocation } from 'react-router-dom';
+import { Menu, X, ArrowRight } from 'lucide-react';
 
 const LINKS = [
     { label: 'Directory', to: '/directory' },
+    { label: 'Events', to: '/#events' },
     { label: 'Resources', to: '/resources' },
     { label: 'About', to: '/#about' },
-    { label: 'How it works', to: '/#how-it-works' },
 ];
 
 export default function Navbar() {
     const [open, setOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
+    const { pathname } = useLocation();
 
     useEffect(() => {
         const onScroll = () => setScrolled(window.scrollY > 8);
@@ -26,18 +27,16 @@ export default function Navbar() {
         return () => { document.body.style.overflow = ''; };
     }, [open]);
 
+    // A hash link (/#about) is never "active" in the nav sense; only real pages are.
+    const isPage = (to) => !to.includes('#') && (pathname === to || pathname.startsWith(`${to}/`));
+
     return (
         <header
-            className={`sticky top-0 z-50 border-b transition-all duration-300 ${
-                scrolled
-                    ? 'border-ink-200 bg-parchment/95 backdrop-blur-md shadow-sm'
-                    : 'border-transparent bg-parchment'
+            className={`sticky top-0 z-50 border-b-2 bg-parchment transition-all duration-200 ${
+                scrolled ? 'border-ink-900' : 'border-transparent'
             }`}
         >
-            <nav
-                aria-label="Main"
-                className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-3 lg:px-8"
-            >
+            <nav aria-label="Main" className="shell flex items-center justify-between gap-5 py-3">
                 <Link to="/" className="shrink-0" aria-label="Seniors Professional Network — home">
                     <img
                         src="/spn-logo-horizontal.png"
@@ -54,20 +53,24 @@ export default function Navbar() {
                         <NavLink
                             key={l.to}
                             to={l.to}
-                            className={({ isActive }) =>
-                                `rounded-full px-4 py-2.5 text-base font-medium transition-colors ${
-                                    isActive && l.to.startsWith('/') && !l.to.includes('#')
-                                        ? 'bg-olive-50 text-olive-800'
-                                        : 'text-ink-700 hover:bg-olive-50 hover:text-olive-800'
-                                }`
-                            }
+                            className={`rounded-full px-4 py-2.5 text-base font-semibold transition-colors ${
+                                isPage(l.to)
+                                    ? 'bg-olive-300 text-ink-900'
+                                    : 'text-ink-800 hover:bg-olive-100'
+                            }`}
                         >
                             {l.label}
                         </NavLink>
                     ))}
-                    <Link to="/directory" className="btn-primary ml-3 !px-6 !text-[0.95rem]">
-                        <Search size={18} aria-hidden="true" />
+                    <Link
+                        to="/directory"
+                        className="ml-3 inline-flex min-h-[3rem] items-center gap-2.5 rounded-full border-2 border-ink-900
+                                   bg-olive-700 px-6 text-base font-bold text-white shadow-hard-sm
+                                   transition-[transform,box-shadow] duration-150
+                                   hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none"
+                    >
                         Find a professional
+                        <ArrowRight size={18} aria-hidden="true" />
                     </Link>
                 </div>
 
@@ -77,27 +80,24 @@ export default function Navbar() {
                     onClick={() => setOpen((v) => !v)}
                     aria-expanded={open}
                     aria-controls="mobile-menu"
-                    className="flex h-12 w-12 items-center justify-center rounded-full text-ink-800 hover:bg-olive-50 lg:hidden"
+                    className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-ink-900 lg:hidden"
                 >
                     <span className="sr-only">{open ? 'Close menu' : 'Open menu'}</span>
-                    {open ? <X size={26} /> : <Menu size={26} />}
+                    {open ? <X size={24} /> : <Menu size={24} />}
                 </button>
             </nav>
 
             {/* Mobile menu */}
             {open && (
-                <div
-                    id="mobile-menu"
-                    className="border-t border-ink-200 bg-parchment lg:hidden"
-                >
-                    <div className="mx-auto max-w-7xl px-5 py-4">
+                <div id="mobile-menu" className="border-t-2 border-ink-900 bg-parchment lg:hidden">
+                    <div className="shell py-4">
                         <ul className="flex flex-col">
                             {LINKS.map((l) => (
                                 <li key={l.to}>
                                     <Link
                                         to={l.to}
                                         onClick={() => setOpen(false)}
-                                        className="block border-b border-ink-100 py-4 text-lg font-medium text-ink-800"
+                                        className="block border-b-2 border-dashed border-ink-200 py-4 text-lg font-semibold text-ink-900"
                                     >
                                         {l.label}
                                     </Link>
@@ -105,8 +105,10 @@ export default function Navbar() {
                             ))}
                         </ul>
                         <Link to="/directory" onClick={() => setOpen(false)} className="btn-primary mt-5 w-full">
-                            <Search size={18} aria-hidden="true" />
                             Find a professional
+                            <span className="btn-arrow">
+                                <ArrowRight size={18} aria-hidden="true" />
+                            </span>
                         </Link>
                     </div>
                 </div>
