@@ -336,8 +336,10 @@ export const members = [
             linkedin: 'https://www.linkedin.com/in/karen-tyrell/',
             facebook: 'https://www.facebook.com/Personalized.Dementia.Solutions.Inc',
             instagram: 'dementia__help',
-            bookingLabel: 'Book a free call',
-    },
+        },
+        bookingLabel: 'Book a free call',
+        photo: '/members/karen-tyrell.jpg',
+        logo: '/members/logos/dementia-solutions.png',
     },
     {
         slug: 'diane-hill-doell',
