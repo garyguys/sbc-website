@@ -22,7 +22,7 @@ const setMeta = (selector, attr, value) => {
  * strings are deliberately left off so filtered directory views all point
  * back at /directory.
  */
-export default function usePageMeta({ title, description = DEFAULT_DESCRIPTION, path = '/' }) {
+export default function usePageMeta({ title, description = DEFAULT_DESCRIPTION, path = '/', noindex = false }) {
     useEffect(() => {
         const fullTitle = title ? `${title} | ${SITE_NAME}` : `${SITE_NAME} — Trusted professionals serving seniors in Metro Vancouver & the Fraser Valley`;
         const url = `${SITE_URL}${path}`;
@@ -33,5 +33,6 @@ export default function usePageMeta({ title, description = DEFAULT_DESCRIPTION, 
         setMeta('meta[property="og:title"]', 'content', title || SITE_NAME);
         setMeta('meta[property="og:description"]', 'content', description);
         setMeta('meta[property="og:url"]', 'content', url);
-    }, [title, description, path]);
+        setMeta('meta[name="robots"]', 'content', noindex ? 'noindex, nofollow' : 'index, follow');
+    }, [title, description, path, noindex]);
 }

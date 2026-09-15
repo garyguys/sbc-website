@@ -20,7 +20,14 @@
 //   audience    "public"  — open to anyone, the default
 //               "members" — SPN members only
 //   link        Optional URL for details or registration.
+//   organizer   "spn"    — run by the Seniors Professional Network (gets an
+//                          "SPN event" tag on the card)
+//               "member" — a member's own event (open house, seminar, etc.)
+//   hostName    For member events: the business or person hosting, as shown.
 //   host        Optional member slug, links the event to their profile.
+//
+// Members submit their events through the unlisted /submit-event page; the
+// submissions arrive by email (Formspree) and are added here by hand.
 // =============================================================================
 
 export const events = [
@@ -32,6 +39,7 @@ export const events = [
             'Community Education Series, part one. Talks on brain health, nutrition, falls prevention and in-home support, plus exhibitor tables and lunch.',
         location: 'Grace Point Church, 3487 King George Blvd, South Surrey',
         audience: 'public',
+        organizer: 'spn',
     },
     {
         date: '2026-11-19',
@@ -41,6 +49,7 @@ export const events = [
             'Community Education Series, part two. A panel on housing options, then downsizing, selling and moving, and financing the next step, plus exhibitor tables and lunch.',
         location: 'Grace Point Church, 3487 King George Blvd, South Surrey',
         audience: 'public',
+        organizer: 'spn',
     },
 ];
 

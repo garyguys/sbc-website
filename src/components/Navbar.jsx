@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
-import { Menu, X, ArrowRight } from 'lucide-react';
+import { Menu, X, ArrowRight, MessageCircle } from 'lucide-react';
 
 const LINKS = [
     { label: 'Directory', to: '/directory' },
@@ -43,7 +43,7 @@ export default function Navbar() {
                         alt="Seniors Professional Network"
                         width={1000}
                         height={348}
-                        className="h-12 w-auto sm:h-14"
+                        className="h-12 w-auto sm:h-14 lg:h-12 xl:h-14"
                     />
                 </Link>
 
@@ -53,7 +53,7 @@ export default function Navbar() {
                         <NavLink
                             key={l.to}
                             to={l.to}
-                            className={`rounded-full px-4 py-2.5 text-base font-semibold transition-colors ${
+                            className={`whitespace-nowrap rounded-full px-3 py-2.5 text-base font-semibold transition-colors xl:px-4 ${
                                 isPage(l.to)
                                     ? 'bg-olive-300 text-ink-900'
                                     : 'text-ink-800 hover:bg-olive-100'
@@ -63,9 +63,19 @@ export default function Navbar() {
                         </NavLink>
                     ))}
                     <Link
+                        to="/#ask"
+                        className="ml-2 inline-flex min-h-[3rem] items-center gap-2 whitespace-nowrap rounded-full border-2 border-ink-900
+                                   bg-white px-4 text-base font-bold text-ink-900 shadow-hard-sm xl:ml-3 xl:px-5
+                                   transition-[transform,box-shadow] duration-150
+                                   hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none"
+                    >
+                        <MessageCircle size={18} aria-hidden="true" />
+                        Get in touch
+                    </Link>
+                    <Link
                         to="/directory"
-                        className="ml-3 inline-flex min-h-[3rem] items-center gap-2.5 rounded-full border-2 border-ink-900
-                                   bg-olive-700 px-6 text-base font-bold text-white shadow-hard-sm
+                        className="ml-2 inline-flex min-h-[3rem] items-center gap-2.5 whitespace-nowrap rounded-full border-2 border-ink-900
+                                   bg-olive-700 px-4 text-base font-bold text-white shadow-hard-sm xl:ml-3 xl:px-6
                                    transition-[transform,box-shadow] duration-150
                                    hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none"
                     >
@@ -109,6 +119,10 @@ export default function Navbar() {
                             <span className="btn-arrow">
                                 <ArrowRight size={18} aria-hidden="true" />
                             </span>
+                        </Link>
+                        <Link to="/#ask" onClick={() => setOpen(false)} className="btn-plain mt-3 w-full">
+                            <MessageCircle size={18} aria-hidden="true" />
+                            Get in touch
                         </Link>
                     </div>
                 </div>

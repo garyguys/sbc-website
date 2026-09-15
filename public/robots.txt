@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /submit-event
 
 Sitemap: https://www.seniorsbc.com/sitemap.xml

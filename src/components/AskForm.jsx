@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ArrowRight, LoaderCircle } from 'lucide-react';
+import { FIELD, LABEL } from '../lib/formStyles';
 
 /**
  * The one contact form on the site. Submissions go to Formspree, which emails
@@ -29,10 +30,6 @@ const TOPICS = [
     'Something else',
 ];
 
-const FIELD =
-    'w-full rounded-2xl border-2 border-ink-900 bg-white px-5 text-base text-ink-900 ' +
-    'placeholder:text-ink-500 focus:outline-none focus:ring-2 focus:ring-olive-700';
-const LABEL = 'block text-base font-semibold text-ink-900';
 
 export default function AskForm({ idPrefix = 'ask' }) {
     const navigate = useNavigate();

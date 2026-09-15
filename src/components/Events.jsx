@@ -15,6 +15,14 @@ const COLUMNS = 5; // months shown on the wide timeline
 
 const audienceLabel = (e) => (e.audience === 'members' ? 'Members only' : 'Open to the public');
 
+/** Small tag marking the network's own events, so they stand apart from members' events. */
+const SPN_TAG = {
+    'card': 'border-ink-900 bg-olive-300 text-ink-900',
+    'card-accent': 'border-ink-900 bg-white text-ink-900',
+    'card-cream': 'border-ink-900 bg-olive-300 text-ink-900',
+    'card-dark': 'border-olive-300 bg-olive-300 text-ink-900',
+};
+
 function EventBody({ event: e, tone, index, withMonth = false }) {
     const s = STYLE[tone];
     return (
@@ -26,7 +34,14 @@ function EventBody({ event: e, tone, index, withMonth = false }) {
                     {shortDate(e.date)}
                     {e.endDate && ` to ${shortDate(e.endDate)}`}
                 </p>
-                <span className="badge-num !h-7 !w-7 !text-xs">{index + 1}</span>
+                <span className="flex shrink-0 items-center gap-2">
+                    {e.organizer === 'spn' && (
+                        <span className={`whitespace-nowrap rounded-full border-2 px-2 py-0.5 text-[0.65rem] font-bold uppercase tracking-[0.1em] ${SPN_TAG[tone]}`}>
+                            SPN event
+                        </span>
+                    )}
+                    <span className="badge-num !h-7 !w-7 !text-xs">{index + 1}</span>
+                </span>
             </div>
             <h3 className={`mt-3 font-serif text-xl font-bold leading-snug ${s.title}`}>
                 {e.link ? (
@@ -50,6 +65,9 @@ function EventBody({ event: e, tone, index, withMonth = false }) {
                     <MapPin size={16} aria-hidden="true" className="mt-0.5 shrink-0" />
                     <span>{e.location || 'Location to confirm'}</span>
                 </p>
+                {e.hostName && (
+                    <p className="text-xs uppercase tracking-[0.1em] opacity-80">Hosted by {e.hostName}</p>
+                )}
                 <p className="text-xs uppercase tracking-[0.1em] opacity-80">{audienceLabel(e)}</p>
             </div>
         </>
@@ -83,7 +101,8 @@ export default function Events() {
                     <p className="eyebrow">What’s on</p>
                     <h2 className="mt-4 font-serif text-4xl font-bold sm:text-5xl">Upcoming events</h2>
                     <p className="mt-5 text-xl text-ink-700">
-                        Workshops, talks and community events run by the network and open to the public.
+                        Workshops, talks, open houses and community events from the network and its members, open to
+                        the public.
                     </p>
                 </div>
 

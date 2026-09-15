@@ -30,6 +30,17 @@ checkbox is the mailing-list sign-up: filter the Formspree inbox on
 `updates = Yes` to build the list. The only other way to reach SPN on the site
 is the plain email address; every "Ask us" button links to `/#ask`.
 
+## Member event submissions
+
+`/submit-event` is an unlisted page (not linked anywhere, `noindex`, and
+disallowed in `robots.txt`) where members submit their own events. It posts to
+a second Formspree form (`https://formspree.io/f/maeyrvzv`) and lands on
+`/thank-you?sent=event`. Nothing is published automatically: add approved
+events to `src/data/events.js` by hand with `organizer: 'member'` and a
+`hostName`. SPN's own events carry `organizer: 'spn'`, which shows the
+"SPN event" tag on the card. Share the address with members directly:
+https://www.seniorsbc.com/submit-event
+
 ## Search engines and sharing
 
 - `public/sitemap.xml` is **generated**, not edited: `npm run build` runs
