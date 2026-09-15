@@ -154,9 +154,11 @@ export default function MemberProfile() {
 
                             {m.services?.length > 0 && (
                                 <Card title="Services">
-                                    <ul className="mt-5 grid gap-3 sm:grid-cols-2">
+                                    {/* CSS columns rather than a grid: items flow down each column, so a long
+                                        item does not leave a gap beside its neighbour. */}
+                                    <ul className="mt-5 -mb-3 sm:columns-2 sm:gap-x-6">
                                         {m.services.map((s) => (
-                                            <li key={s} className="flex items-start gap-2.5 text-base text-ink-700">
+                                            <li key={s} className="flex items-start gap-2.5 break-inside-avoid pb-3 text-base text-ink-700">
                                                 <Check size={20} aria-hidden="true" className="mt-1 shrink-0 text-olive-700" />
                                                 {s}
                                             </li>
