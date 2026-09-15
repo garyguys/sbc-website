@@ -28,6 +28,7 @@ export const businesses = {
         company: 'Get Started Home Services',
         website: 'https://getstartedhomeservices.com',
         logo: '/members/logos/get-started-home-services.png',
+        location: 'Mobile service across Metro Vancouver and the Fraser Valley',
         booking: 'https://www.getstartedhomeservices.com/#quote',
         bookingLabel: 'Book a consultation',
         tagline: 'Full service seniors moving and home transitions.',
