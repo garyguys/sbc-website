@@ -34,7 +34,7 @@ export default function Footer() {
                         <ul className="mt-5 space-y-3 text-base">
                             <li><Link to="/directory" className="text-ink-400 hover:text-white">Member directory</Link></li>
                             <li><Link to="/resources" className="text-ink-400 hover:text-white">Resources</Link></li>
-                            <li><Link to="/#events" className="text-ink-400 hover:text-white">Events</Link></li>
+                            <li><Link to="/events" className="text-ink-400 hover:text-white">Events</Link></li>
                             <li><Link to="/#about" className="text-ink-400 hover:text-white">About us</Link></li>
                             <li><Link to="/#how-it-works" className="text-ink-400 hover:text-white">How it works</Link></li>
                             <li><Link to="/#ask" className="text-ink-400 hover:text-white">Ask us a question</Link></li>

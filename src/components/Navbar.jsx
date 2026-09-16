@@ -4,7 +4,7 @@ import { Menu, X, ArrowRight, MessageCircle } from 'lucide-react';
 
 const LINKS = [
     { label: 'Directory', to: '/directory' },
-    { label: 'Events', to: '/#events' },
+    { label: 'Events', to: '/events' },
     { label: 'Resources', to: '/resources' },
     { label: 'About', to: '/#about' },
 ];

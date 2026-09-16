@@ -570,6 +570,8 @@ export const members = [
         description: 'Residential real estate across Metro Vancouver and the Fraser Valley, with more than 21 years of experience helping people sell the family home and find the right next place, whether that is a smaller home, a condo or a retirement community.',
         services: ['Home valuation and selling', 'Downsizing and the move to a smaller home', 'Property search and listing alerts', 'Coordination with mortgage and moving professionals', 'Market reports'],
         areasServed: ['Metro Vancouver', 'Fraser Valley'],
+        photo: '/members/sadhana-kumar.jpg',
+        logo: '/members/logos/sadhana-kumar.png',
     },
 
     // ============================ Legal Services ============================

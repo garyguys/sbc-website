@@ -32,6 +32,19 @@
 
 export const events = [
     {
+        // Submitted by Louise Taylor via /submit-event, 2026-09-15
+        date: '2026-10-17',
+        time: '10:00 a.m. to 1:00 p.m.',
+        title: 'Elder Abuse',
+        summary:
+            'Valuable information for seniors and their loved ones: tips, issues to watch out for, knowing who to trust and who to call if you find yourself a victim of abuse. Coffee and refreshments in the morning, followed by a bag lunch. Free. To RSVP, call 604-501-5100.',
+        location: 'Newton Seniors Community Centre, Surrey',
+        audience: 'public',
+        organizer: 'member',
+        hostName: 'Brella Community Services Society',
+        host: 'louise-taylor',
+    },
+    {
         date: '2026-10-22',
         time: '10:30 a.m. to 3:00 p.m., doors 10:00 a.m.',
         title: 'Thriving at Home: Resources and Strategies for Staying Independent',

@@ -63,7 +63,7 @@ There is no CMS. Three files in `src/data/` control almost everything:
 |---|---|
 | `members.js` | The member roster and industry categories |
 | `businesses.js` | Shared records for businesses with more than one member |
-| `events.js` | Upcoming events for the home page |
+| `events.js` | Upcoming events (next six on the home page, all of them on `/events`) |
 | `resources.js` | Guide articles |
 
 Adding a member means adding one object to the `members` array. The only

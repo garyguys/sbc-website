@@ -11,6 +11,7 @@ const today = new Date().toISOString().slice(0, 10);
 const urls = [
     { loc: '/', priority: '1.0', changefreq: 'weekly' },
     { loc: '/directory', priority: '0.9', changefreq: 'weekly' },
+    { loc: '/events', priority: '0.8', changefreq: 'weekly' },
     { loc: '/resources', priority: '0.7', changefreq: 'monthly' },
     ...members.map((m) => ({ loc: `/directory/${m.slug}`, priority: '0.8', changefreq: 'monthly' })),
     ...publishedResources().map((r) => ({ loc: `/resources/${r.slug}`, priority: '0.6', changefreq: 'yearly' })),

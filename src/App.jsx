@@ -9,6 +9,7 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import Terms from './pages/Terms';
 import ThankYou from './pages/ThankYou';
 import SubmitEvent from './pages/SubmitEvent';
+import EventsPage from './pages/EventsPage';
 
 /**
  * Restores the top of the page on navigation, but honours in-page hash links
@@ -59,6 +60,7 @@ export default function App() {
                 <Route path="/terms" element={<Terms />} />
                 <Route path="/thank-you" element={<ThankYou />} />
                 <Route path="/submit-event" element={<SubmitEvent />} />
+                <Route path="/events" element={<EventsPage />} />
                 <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
         </>
