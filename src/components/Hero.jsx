@@ -79,7 +79,7 @@ export default function Hero() {
 
                 <div className="relative mx-auto max-w-2xl text-center">
                     <a
-                        href="https://bccrns.ca"
+                        href="https://bccrns.ca/bccrnsnetwork/seniors-professional-network"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="pill mx-auto transition-colors hover:bg-olive-800"

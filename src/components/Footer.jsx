@@ -72,7 +72,7 @@ export default function Footer() {
                     <div>
                         <h2 className="font-serif text-lg font-semibold text-white">Affiliations</h2>
                         <a
-                            href="https://bccrns.ca"
+                            href="https://bccrns.ca/bccrnsnetwork/seniors-professional-network"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="mt-5 block text-base text-ink-400 hover:text-white"
