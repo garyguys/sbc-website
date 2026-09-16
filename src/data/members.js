@@ -38,7 +38,8 @@
 //                 { name, address, phone?, website? }, listed on the profile.
 //   photo         Path under /public for a headshot (square, 600x600 JPEG).
 //                 Cards and profiles fall back to initials when absent.
-//   logo          Path under /public/members/logos for the business logo
+//   logo          Path under /public/members/logos for the business logo, or a
+//                 list of paths when the member represents more than one brand
 //                 (PNG, transparent or white background), shown on the profile.
 //   business      Key of a shared record in ./businesses.js, for members who
 //                 work for the same business. The business fields are filled
@@ -256,6 +257,8 @@ export const members = [
         slug: 'natasha-stott',
         name: 'Natasha Stott',
         company: 'Pacific Carlton / Sunnyside Manor',
+        photo: '/members/natasha-stott.jpg',
+        logo: ['/members/logos/pacific-carlton.png', '/members/logos/sunnyside-manor.png'],
         email: 'sales@pacificcarlton.com',
         phone: '604-838-5442',
         website: 'https://www.pacificcarlton.com',
@@ -559,17 +562,46 @@ export const members = [
 
     // ============================= Real Estate ==============================
     {
+        // Form response 2026-09-15
         slug: 'sadhana-kumar',
         name: 'Sadhana Kumar',
-        title: 'Seniors Real Estate Specialist',
-        company: 'eXp Realty',
+        credentials: 'SRES, CPCA, EPC',
+        title: 'Realtor and Seniors Real Estate Specialist',
+        company: 'Sadhana Kumar Real Estate, eXp Realty',
         email: 'info@soldbysadhana.com',
         phone: '604-762-6125',
         website: 'https://www.soldbysadhana.com',
+        booking: 'https://www.soldbysadhana.com/contact.php',
+        bookingLabel: 'Get in touch',
         category: 'Real Estate',
-        description: 'Residential real estate across Metro Vancouver and the Fraser Valley, with more than 21 years of experience helping people sell the family home and find the right next place, whether that is a smaller home, a condo or a retirement community.',
-        services: ['Home valuation and selling', 'Downsizing and the move to a smaller home', 'Property search and listing alerts', 'Coordination with mortgage and moving professionals', 'Market reports'],
-        areasServed: ['Metro Vancouver', 'Fraser Valley'],
+        location: 'Surrey',
+        address: 'eXp Realty, 115 - 7565 132 Street, Surrey, BC V3W 1K5',
+        tagline: 'Over 20 years as a Realtor, SRES certified, helping seniors move with care and confidence.',
+        blurb:
+            'Sadhana is a Realtor with over 20 years of experience and a certified Seniors Real Estate Specialist (SRES), serving older adults and families throughout Greater Vancouver and the Fraser Valley. She guides clients through downsizing, relocating, and transitions to independent living, assisted living, or memory care.\n\nSadhana works alongside trusted move managers and lifestyle consultants to ease the stress of every stage of a move, understanding these transitions are personal, not just transactional. Guided by empathy and integrity, she helps families move forward with clarity and confidence.',
+        description:
+            'A move later in life is rarely just about the house. It is about letting go of memories, adjusting to change, and finding a new place to feel at home. That is why Sadhana works closely with trusted move managers and lifestyle consultants, coordinating every detail so families can focus on each other instead of logistics.\n\nShe listens first, moves at her clients’ pace, and treats every transition, whether to a smaller home, independent living, assisted living, or memory care, with the patience and compassion it deserves. For Sadhana, this work is not just about closing a sale. It is about helping people feel supported through one of life’s biggest changes.',
+        services: [
+            'Home evaluation and sale',
+            'Buyer representation',
+            'Downsizing guidance',
+            'Coordination with move managers, lifestyle consultants and other professionals',
+        ],
+        idealClients:
+            'Seniors 55+ and their adult children across Greater Vancouver and the Fraser Valley who are facing a move, whether downsizing to a smaller home or transitioning to independent living, assisted living, or memory care, often prompted by a health change or a family decision that a home no longer fits.',
+        gettingStarted:
+            'We usually start with a phone conversation to understand your needs, then arrange an in-home meeting at a time that works best for you. No pressure, just a conversation.',
+        freeConsultation: true,
+        hours: 'By appointment',
+        languages: ['English', 'Hindi'],
+        years: '6 to 10 years',
+        established: 2004,
+        areasServed: [...LOWER_MAINLAND, 'Abbotsford and Mission'],
+        social: {
+            linkedin: 'https://www.linkedin.com/in/soldbysadhana/',
+            facebook: 'https://www.facebook.com/SadhanaDKumar',
+            instagram: 'soldbysadhana',
+        },
         photo: '/members/sadhana-kumar.jpg',
         logo: '/members/logos/sadhana-kumar.png',
     },
@@ -643,7 +675,7 @@ export const members = [
         blurb:
             'Louise Taylor is a passionate and purpose-driven leader committed to improving the lives of older adults through innovation, collaboration and community engagement. With a strong focus on strategy and measurable outcomes, she excels at building relationships, inspiring action, and identifying opportunities, both big and small, to create lasting positive change.\n\nA ten-year resident of White Rock, Louise has volunteered and fundraised for various organizations for more than 30 years. She is a charity auctioneer who got her start working aboard cruise ships, and the founder of the Ladner Village Market.',
         description:
-            'Brella helps older adults, caregivers and families lead full, engaged and meaningful lives through community-based programs, dementia support, caregiver services, wellness initiatives and volunteer opportunities. For nearly 50 years, Brella has been creating caring communities where older adults can thrive.\n\nThrough its partnership with Crescent Housing Society, Brella also supports affordable, supportive housing for older adults in South Surrey and White Rock, where residents benefit from accessible housing, community connections, wellness programs and opportunities to age in place with dignity and independence.',
+            'Brella helps older adults, caregivers and families lead full, engaged and meaningful lives through community-based programs, dementia support, caregiver services, wellness initiatives and volunteer opportunities. For nearly 50 years, Brella has been creating caring communities where older adults can thrive.\n\nThrough its partnership with Crescent Housing Society, Brella also supports affordable, supportive housing for older adults in South Surrey and White Rock, where residents benefit from accessible housing, community connections, wellness programs and opportunities to age in place with dignity and independence. Crescent’s Ocean Park community offers 256 below-market independent living suites for adults 55+, in a parklike setting next to Crescent Park with beaches, walking paths and transit close by.',
         services: [
             'Community-based programs for older adults',
             'Dementia support',
@@ -651,6 +683,14 @@ export const members = [
             'Wellness initiatives',
             'Volunteer opportunities',
             'Affordable, supportive housing through Crescent Housing Society',
+        ],
+        // Location Details form response 2026-09-14
+        locations: [
+            {
+                name: 'Crescent Housing Society, Ocean Park',
+                address: '12850 26th Avenue, Surrey, BC V4P 1S1',
+                phone: '604-538-9669',
+            },
         ],
         established: 1977,
         photo: '/members/louise-taylor.jpg',

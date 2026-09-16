@@ -343,8 +343,11 @@ export default function MemberProfile() {
                             </div>
 
                             {m.logo && (
-                                <div className="card flex items-center justify-center p-6">
-                                    <img src={m.logo} alt={`${m.company} logo`} className="max-h-28 w-auto max-w-full" />
+                                <div className="card flex flex-wrap items-center justify-center gap-6 p-6">
+                                    {/* `logo` is one path, or a list when a member represents more than one brand */}
+                                    {[].concat(m.logo).map((src) => (
+                                        <img key={src} src={src} alt={`${m.company} logo`} className="max-h-28 w-auto max-w-full" />
+                                    ))}
                                 </div>
                             )}
 
