@@ -254,18 +254,31 @@ export const members = [
         bookingLabel: 'Book a tour',
     },
     {
+        // Form response 2026-09-16
         slug: 'natasha-stott',
         name: 'Natasha Stott',
-        company: 'Pacific Carlton / Sunnyside Manor',
+        title: 'Sales Manager',
+        company: 'Pacific Carlton & Sunnyside Manor',
         photo: '/members/natasha-stott.jpg',
         logo: ['/members/logos/pacific-carlton.png', '/members/logos/sunnyside-manor.png'],
         email: 'sales@pacificcarlton.com',
         phone: '604-838-5442',
-        website: 'https://www.pacificcarlton.com',
+        website: 'https://pacificcarlton.com',
+        booking: 'https://pacificcarlton.com/book-a-tour/',
+        bookingLabel: 'Book a tour',
         category: 'Senior Living & Care',
-        location: 'White Rock',
-        description: 'Two sister communities in South Surrey and White Rock offering all-inclusive independent living for seniors.',
-        services: ['Independent living', 'All-inclusive hospitality services'],
+        location: 'South Surrey',
+        tagline: 'All-inclusive independent living in the heart of South Surrey.',
+        blurb:
+            'Natasha is passionate about helping seniors and their families navigate one of life’s most significant transitions. Known for her caring and empathetic approach, she takes the time to listen, answer questions, and ensure each person feels informed and supported throughout the process.\n\nShe understands that moving to a senior living community is more than a change of address. It is a lifestyle transition that involves many emotional and practical considerations. From exploring options to downsizing and navigating the transition, Natasha provides guidance, reassurance, and support every step of the way, helping families feel confident and excited about the next chapter in their lives.',
+        description:
+            'Both Sunnyside Manor and Pacific Carlton are ideally situated on quiet residential streets in the heart of South Surrey, just minutes from shopping, services, restaurants, and everyday amenities. The all-inclusive independent living communities offer a range of thoughtfully designed suites, from cozy studios to spacious two-bedroom units with full kitchens, in-suite laundry, and two bathrooms.\n\nAs a Canadian-owned, locally operated non-profit organization, the communities are dedicated to providing seniors with the very best in independent living. Residents enjoy a warm and welcoming community, exceptional services and amenities, and the peace of mind that comes with a comfortable, maintenance-free lifestyle. The goal is to help every resident feel at home while embracing an active, independent, and fulfilling next chapter in life.',
+        services: ['All-inclusive independent living', 'Studio to two-bedroom suites with full kitchens and in-suite laundry', 'Canadian-owned, locally operated non-profit'],
+        payment: ['Private pay'],
+        languages: ['English'],
+        years: '6 to 10 years',
+        areasServed: ['Surrey and White Rock'],
+        social: { facebook: 'https://www.facebook.com/PacificCarlton/' },
         locations: [
             { name: 'Pacific Carlton', address: '15366 17th Avenue, Surrey, BC V4A 1T9', phone: '604-531-1160', website: 'https://www.pacificcarlton.com' },
             { name: 'Sunnyside Manor', address: '15340 17th Avenue, Surrey, BC V4A 1T9', phone: '604-531-7470', website: 'https://sunnysidemanor.com' },
@@ -608,16 +621,42 @@ export const members = [
 
     // ============================ Legal Services ============================
     {
+        // Form response 2026-09-16
         slug: 'mimi-wang',
         name: 'Mimi Wang',
+        credentials: 'BCom, JD',
+        title: 'Probate Lawyer',
         company: 'Maximus Law',
         email: 'wang@maximuslaw.ca',
-        phone: '778-386-6963', // published on maximuslaw.ca
+        phone: '778-386-6963',
         website: 'https://www.maximuslaw.ca',
         category: 'Legal Services',
-        social: { linkedin: 'https://www.linkedin.com/in/mimi-w-9b69161b' },
-        description: 'Wills and estate planning, including powers of attorney, representation agreements and medical directives, along with grants of probate and estate administration for families after a death. Business and corporate law is also offered.',
-        services: ['Wills and estate planning', 'Powers of attorney', 'Representation agreements and medical directives', 'Grants of probate', 'Estate administration', 'Business law'],
+        tagline: 'Probate and administration grant applications: helping you move the estate forward with clarity and care.',
+        blurb:
+            'Mimi Wang is the principal lawyer at Maximus Law, where she focuses on probate and administration grant applications. She helps executors and administrators navigate the court application process with clarity, care, and practical guidance.\n\nMimi enjoys working with seniors because she values the trust they place in their advisors and believes legal services should feel approachable, respectful, and easy to understand. Her practice is intentionally focused, allowing her to give clients personal attention while helping families and friends move the estate forward efficiently during an important time in their lives.',
+        description:
+            'Maximus Law is a focused probate practice helping executors and administrators obtain grants of probate and administration in British Columbia. The firm serves seniors, families, and individuals entrusted with settling the affairs of someone who has passed away.\n\nRather than offering broad estate administration or litigation services, Maximus Law concentrates on non-contested court applications required to obtain an estate grant. Clients receive direct, personal guidance from the principal lawyer throughout the application process. With an emphasis on clarity and care, Maximus Law aims to make an unfamiliar legal process easier to understand and manage, helping clients move the estate forward efficiently and with confidence.',
+        services: [
+            'Probate grant applications',
+            'Administration grant applications',
+            'Court forms and filing',
+            'Will and estate document review',
+            'Identifying estate assets and liabilities for the application',
+            'Required notices to beneficiaries and other parties',
+            'Communication with financial institutions and other third parties',
+            'Guidance throughout the non-contested estate grant process',
+        ],
+        idealClients:
+            'Executors and administrators in Greater Vancouver who need to obtain a grant of probate or administration after the death of a family member or friend, particularly seniors and families looking for clear, personal guidance through a non-contested court application without engaging a lawyer for ongoing estate administration.',
+        gettingStarted:
+            'Email Ms. Wang to request an Executor’s Checklist to help you prepare. Once you have reviewed the checklist, the next step is a brief phone call to discuss your situation and determine whether an initial consultation should be arranged.',
+        freeConsultation: true,
+        accreditations: ['Member in good standing with the Law Society of British Columbia'],
+        hours: 'By appointment only',
+        languages: ['English', 'Mandarin'],
+        years: '11 to 20 years',
+        areasServed: [...LOWER_MAINLAND, 'Abbotsford and Mission'],
+        social: { linkedin: 'https://www.linkedin.com/in/mimi-w-9b69161b/' },
     },
 
     // =========================== Travel & Leisure ===========================
