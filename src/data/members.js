@@ -435,17 +435,56 @@ export const members = [
         areasServed: ['Surrey and White Rock', 'Langley', 'Delta, Ladner and Tsawwassen'],
     },
     {
+        // Form response 2026-09-28
         slug: 'shalini-charla',
         name: 'Shalini Charla',
+        title: 'Program Coordinator',
         company: 'Adult Cognitive Wellness Centre',
-        email: 'shalinic@adultcognitivewellnesscentre.ca',
+        email: 'info@adultcognitivewellnesscentre.ca',
         phone: '778-549-6413',
         website: 'https://adultcognitivewellnesscentre.ca',
         category: 'Health & Wellness',
         location: 'Langley',
-        address: '6676 203rd Street, Langley, BC V2Y 2Z1',
-        description: 'Group cognitive stimulation programs using evidence-based practices to help improve or maintain cognitive function and overall wellness, with caregiver support groups and free half-day trial programs.',
-        services: ['Cognitive stimulation programs', 'Physical wellness activities', 'Social engagement', 'Caregiver support groups', 'Free half-day trial programs'],
+        // Unit number from the form; postal code from the centre's website
+        // (the form said V3B 6B4, which is a Port Coquitlam code).
+        address: '#3 - 6676 203rd Street, Langley, BC V2Y 2Z1',
+        tagline: 'Dementia and cognitive wellness day centre.',
+        blurb:
+            'I joined the Adult Cognitive Wellness Centre in 2020 and have had the privilege of growing with the program from its early days. I began by supporting clients during activities and providing one-to-one assistance when needed. Over time, I became more involved in client intake, family communication and program coordination.\n\nWhat I enjoy most about working with older adults is building genuine relationships and seeing how meaningful engagement can positively change someone’s mood and day, because dementia care should feel like connection, not isolation. Even on busy days, I still enjoy spending time with clients, joining activities and sharing conversations. The Adult Cognitive Wellness Centre brings innovation to dementia care.',
+        description:
+            'Adult Cognitive Wellness Centre is dedicated to supporting brain health, cognitive wellness, meaningful engagement and quality of life for older adults, including individuals living with mild cognitive impairment or dementia.\n\nOur vision is to create a welcoming, dementia-friendly environment where every person is seen for their strengths, abilities, interests and life experiences. What makes our group dementia day program unique is our small-group approach, allowing participants to receive more individualized attention while building meaningful social connections.\n\nWe use a holistic approach that supports the whole person through cognitive stimulation, music, movement, recreation, social engagement and purposeful activities. Our Montessori-inspired programming focuses on remaining abilities, choice, independence and meaningful participation. We offer a free half-day trial.',
+        services: [
+            'Dementia-friendly group day program',
+            'Adult Cognitive Wellness Program for early-stage cognitive changes',
+            'One-to-one therapeutic recreation',
+            'In-home dementia care, Montessori-inspired approach',
+            'Brain fitness group program',
+            'Family caregiver support group',
+            'Music and movement program',
+            'Circl cognitive screening and brain health tracking',
+            'Free half-day trial',
+        ],
+        idealClients:
+            'Older adults who want to support brain health, stay socially connected and remain engaged, including people with early cognitive changes, mild cognitive impairment or dementia. We also support families seeking meaningful programs, respite and caregiver support, and senior communities who want to partner with us to bring the program to their residents.',
+        gettingStarted:
+            'Call us or book online. We offer a free consultation, virtually or in person, to learn about your needs, answer questions and help determine the best program or service for you. No referral is needed, and there is no waiting list.',
+        freeConsultation: true,
+        payment: ['Private pay', 'Veterans Affairs Canada', 'Extended health or insurance', 'Government programs or grants'],
+        accreditations: ['BBB Accredited', 'Chamber of Commerce member'],
+        hours: 'Monday to Friday, 9:00 a.m. to 4:00 p.m.',
+        languages: ['English', 'Punjabi', 'Hindi', 'Farsi'],
+        years: '2 to 5 years',
+        established: 2020,
+        areasServed: [...LOWER_MAINLAND, 'Abbotsford and Mission', 'Vancouver Island'],
+        social: {
+            linkedin: 'https://www.linkedin.com/in/adult-cognitive-wellness-centre-04b14723b/',
+            facebook: 'https://www.facebook.com/Adult-Cognitive-Wellness-Centre-101305794905864/',
+            // The form's Instagram answer repeated the LinkedIn link; this is
+            // the Instagram account listed on the centre's own website.
+            instagram: 'adultcognitivewellnesscentre',
+        },
+        logo: '/members/logos/adult-cognitive-wellness-centre.png',
+        // Headshot to follow.
     },
 
     {
@@ -533,17 +572,53 @@ export const members = [
     {
         // Two INDEPENDENT Heart to Home Meals franchises are in the network.
         // They must stay visibly distinct so families contact the right one.
+        // Form response 2026-09-27
         slug: 'youla-thomas',
         name: 'Youla Thomas',
+        title: 'Franchise Owner',
         company: 'Heart to Home Meals — Vancouver',
         franchiseOf: 'Heart to Home Meals',
         email: 'vancouver@hearttohomemeals.ca',
-        phone: '778-308-4351', // published Heart to Home Meals Vancouver line
+        phone: '778-308-4351',
         website: 'https://www.hearttohomemeals.ca',
         category: 'Food Services',
         location: 'Vancouver',
-        description: 'Over 200 chef-crafted frozen meals for seniors, delivered free to the door by a familiar driver who will even put them in the freezer. Order online or by phone, as often as you like, with lunch and dinner mains, breakfasts, soups, desserts and snacks.',
-        services: ['Free home delivery', 'Order online or by phone', 'Low sodium, high fibre and vegetarian options', 'Higher protein and carb-controlled options', 'Allergen-aware choices', 'Texture-modified meals'],
+        address: '#1 - 8207 Swenson Way, Delta, BC V4G 1J5',
+        tagline: 'Delicious and nutritious meals made for seniors and delivered right to your door.',
+        blurb:
+            'Youla Thomas is the Franchise Owner of Heart to Home Meals Vancouver. Youla and her husband, Vivek Thomas, opened the first Heart to Home Meals franchise in BC in 2022. As the primary caregivers for their own parents, they realized the urgent need for a consistent service delivering nutritious meals to seniors in their homes. They believe that nutritious meals bring stability to a senior’s health and their ability to lead a healthy, independent life.',
+        description:
+            'At Heart to Home Meals, we believe life should get easier as you age. That’s why we prepare nutritious, healthy meals for seniors that are easy to order and delivered free of charge. Heart to Home Meals has operated on the East Coast for over 14 years and has 20 franchisees across Canada, and we are more than just a delivery service: we believe in building relationships.\n\nFrom seniors being discharged from hospital to an adult child in Nova Scotia ordering meals for Mum in Vancouver, our flexible, no-contract meal delivery service is a great fit for any senior. Our office is based in Delta, and we serve Vancouver, Delta, Richmond, White Rock, Burnaby, New Westminster, and North and West Vancouver. We are a registered provider with Veterans Affairs Canada.',
+        services: [
+            'No contract',
+            'No subscription',
+            'Free delivery right to the door',
+            'Meals placed right into your freezer',
+            'The same driver every time',
+            'Minced and puréed meals',
+        ],
+        idealClients:
+            'Seniors living independently in their own homes; people being discharged from hospital; seniors living with chronic illnesses that prevent them from cooking; people with mobility challenges; adult children and seniors with developmental disabilities living independently; people with swallowing or chewing difficulties; veterans; and people recovering from dental surgery.',
+        gettingStarted:
+            'Call, email or visit our website and we will mail you a free menu.',
+        freeConsultation: true,
+        payment: ['Private pay', 'Veterans Affairs Canada', 'Cash, cheque or credit card'],
+        hours: 'Monday to Friday, 8:30 a.m. to 5:00 p.m. Closed weekends and public holidays.',
+        languages: ['English'],
+        years: '11 to 20 years',
+        established: 2022,
+        areasServed: [
+            'Vancouver',
+            'North Shore (North and West Vancouver)',
+            'Burnaby and New Westminster',
+            'Richmond',
+            'Surrey and White Rock',
+            'Delta, Ladner and Tsawwassen',
+        ],
+        // TODO social: the form gave the Facebook page name only ("Heart to
+        // Home Meals Vancouver"), not a link. Add facebook: '<url>' when known.
+        logo: '/members/logos/heart-to-home-meals.png',
+        // Headshot to follow.
     },
     {
         slug: 'harvin-bhathal',
